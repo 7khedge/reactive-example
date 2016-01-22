@@ -2,8 +2,6 @@ package com.sf.channel;
 
 import com.sf.chronicle.queue.PersistenceSpace;
 import com.sf.chronicle.queue.PersistenceSpaces;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,8 +12,7 @@ import java.util.List;
 /**
  * Created by adityasofat on 22/01/2016.
  */
-public class ChannelsTest {
-
+public class ChannelShould {
     private PersistenceSpace persistenceSpace;
 
     @Before
@@ -29,17 +26,10 @@ public class ChannelsTest {
     }
 
     @Test
-    public void createAChannel() {
+    public void publishToChannel() {
         //Given
-        String channelName = "reader";
         List<String> collector = new ArrayList<String>();
-        //When
-        Channel channel = Channels.newStringChannel(channelName, collector, persistenceSpace);
-        channel.close();
-        //Then
-        MatcherAssert.assertThat(channel.getName(), CoreMatchers.equalTo(channelName));
+        Channel<String> stringChannel = Channels.newStringChannel("reader",collector,persistenceSpace);
     }
-
-
 
 }

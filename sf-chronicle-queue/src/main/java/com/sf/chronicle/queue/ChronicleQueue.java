@@ -40,6 +40,10 @@ public class ChronicleQueue {
         listenChronicleQueue.init();
     }
 
+    public <T> void publishMessage(Message<T> message, int messageSize) {
+        publishChronicleQueue.publishMessage(message, messageSize);
+    }
+
     public <T> void publishMessages(List<Message<T>> messages, int messageSize) {
         publishChronicleQueue.publishMessages(messages, messageSize);
     }

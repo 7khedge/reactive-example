@@ -41,6 +41,10 @@ public class Message<T> implements Serializable {
 
     }
 
+    public T getPayload() {
+        return payload;
+    }
+
     @Override
     public int hashCode() {
         int result = (int) (index ^ (index >>> 32));

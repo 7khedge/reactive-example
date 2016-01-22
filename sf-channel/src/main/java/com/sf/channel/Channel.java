@@ -5,4 +5,10 @@ package com.sf.channel;
  */
 public interface Channel<T> {
 
+
+    String getName();
+    void init();
+    void close();
+    void publish(T message);
+
 }

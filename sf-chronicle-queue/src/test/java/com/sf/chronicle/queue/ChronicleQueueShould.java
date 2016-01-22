@@ -26,7 +26,6 @@ public class ChronicleQueueShould {
     @Before
     public void setup() {
         persistenceSpace = PersistenceSpaces.defaultPersistenceSpace();
-        persistenceSpace.createPersistenceSpace();
         chronicleQueue = new ChronicleQueue("eventQueue", persistenceSpace);
         chronicleQueue.init();
     }
@@ -46,6 +45,34 @@ public class ChronicleQueueShould {
         }catch(RuntimeException e){
             MatcherAssert.assertThat("Exception found " + e.getMessage(), false, CoreMatchers.equalTo(true));
         }
+    }
+
+    @Test
+    public void shouldPublishAMessage() {
+        //Given
+        //When
+        try {
+            chronicleQueue.publishMessage(getMessages().get(0),messageSize);
+        }catch(RuntimeException e){
+            MatcherAssert.assertThat("Exception found " + e.getMessage(), false, CoreMatchers.equalTo(true));
+        }
+    }
+
+    @Test
+    public void shouldPublishAndAReadMessage() {
+        //Given
+        Message<String> expectedMessage = getReadMessages(getMessages()).get(0);
+        final List<Message<String>> actualMessages = new ArrayList<Message<String>>();
+        //When
+        chronicleQueue.publishMessage(getMessages().get(0), messageSize);
+        chronicleQueue.readMessages(new MessageListener() {
+            public void onMessage(Message message) {
+                actualMessages.add(message);
+                System.out.println(message.toString());
+            }
+        }, -1);
+        //Then
+        MatcherAssert.assertThat(expectedMessage, CoreMatchers.is(actualMessages.get(0)));
     }
 
     @Test

@@ -34,13 +34,18 @@ public class PublishChronicleQueue {
 
     public <T> void publishMessages(List<Message<T>> messages, int messageSize) {
         for(Message<T> message : messages) {
-            // Configure the appender to write up to messageSize bytes
-            this.excerptAppender.startExcerpt(messageSize);
-            message.setIndex(this.excerptAppender.index());
-            // Copy the content of the Object as binary
-            this.excerptAppender.writeObject(message);
-            // Commit
-            this.excerptAppender.finish();
+            publishMessage(message, messageSize);
         }
     }
+
+    public <T> void publishMessage(Message<T> message, int messageSize) {
+        // Configure the appender to write up to messageSize bytes
+        this.excerptAppender.startExcerpt(messageSize);
+        message.setIndex(this.excerptAppender.index());
+        // Copy the content of the Object as binary
+        this.excerptAppender.writeObject(message);
+        // Commit
+        this.excerptAppender.finish();
+    }
+
 }
