@@ -12,6 +12,6 @@ public class ChannelsTest {
         //Given
         String channelName = "reader";
         //When
-        Channel channel = Channels.newChannel(channelName);
+        Channel channel = Channels.newStringChannel(channelName);
     }
 }
