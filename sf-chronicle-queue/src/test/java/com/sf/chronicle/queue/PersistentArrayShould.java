@@ -9,7 +9,7 @@ import org.junit.Test;
  * Created by adityasofat on 22/01/2016.
  */
 public class PersistentArrayShould {
-    PersistenceSpace persistenceSpace = new PersistenceSpace(System.getProperty("java.io.tmpdir"),"persistentSpace");
+    PersistenceSpace persistenceSpace = PersistenceSpaces.defaultPersistenceSpace();
 
     @Before
     public void setup() {

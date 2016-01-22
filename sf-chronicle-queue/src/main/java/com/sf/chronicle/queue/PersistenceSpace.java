@@ -10,7 +10,7 @@ public class PersistenceSpace {
     private final String name;
     private String path;
 
-    public PersistenceSpace(String baseDirectory, String name) {
+    PersistenceSpace(String baseDirectory, String name) {
         this.name = name;
         this.path = baseDirectory + getFileSeparator(baseDirectory) + name;
         this.directory = new File(path);

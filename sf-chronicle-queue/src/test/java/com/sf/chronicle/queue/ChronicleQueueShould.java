@@ -25,7 +25,7 @@ public class ChronicleQueueShould {
 
     @Before
     public void setup() {
-        persistenceSpace = new PersistenceSpace(System.getProperty("java.io.tmpdir"), "eventQueue");
+        persistenceSpace = PersistenceSpaces.defaultPersistenceSpace();
         persistenceSpace.createPersistenceSpace();
         chronicleQueue = new ChronicleQueue("eventQueue", persistenceSpace);
         chronicleQueue.init();

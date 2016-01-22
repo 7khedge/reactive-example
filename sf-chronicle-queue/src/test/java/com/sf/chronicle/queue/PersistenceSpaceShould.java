@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class PersistenceSpaceShould {
     //Given
-    private PersistenceSpace persistenceSpace = new PersistenceSpace(System.getProperty("java.io.tmpdir"), "eventQueue");
+    private PersistenceSpace persistenceSpace = PersistenceSpaces.defaultPersistenceSpace();
 
     @After
     public void tearDown() {
