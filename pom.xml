@@ -11,6 +11,7 @@
     <modules>
         <module>sf-chronicle-queue</module>
         <module>sf-util</module>
+        <module>sf-channel</module>
     </modules>
 
     <properties>

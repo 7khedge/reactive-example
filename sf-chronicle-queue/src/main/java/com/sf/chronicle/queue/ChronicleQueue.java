@@ -11,15 +11,21 @@ import java.util.List;
  */
 public class ChronicleQueue {
 
+    private final String queueName;
     private final PersistenceSpace persistenceSpace;
     private final String queuePath;
     private IndexedChronicle indexedChronicle;
     private PublishChronicleQueue publishChronicleQueue;
     private ListenChronicleQueue listenChronicleQueue;
 
-    public ChronicleQueue(PersistenceSpace persistenceSpace, String queueName) {
+    public ChronicleQueue(String queueName, PersistenceSpace persistenceSpace) {
+        this.queueName = queueName;
         this.persistenceSpace = persistenceSpace;
         this.queuePath = this.persistenceSpace.getPath() + File.separator + queueName;
+    }
+
+    public String getQueueName() {
+        return queueName;
     }
 
     public void init(){
