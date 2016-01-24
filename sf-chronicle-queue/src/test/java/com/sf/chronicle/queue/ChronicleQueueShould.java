@@ -76,7 +76,7 @@ public class ChronicleQueueShould {
     }
 
     @Test
-    public void shouldPublishAndReadMessages() {
+    public void shouldReadMessagesPublishedBeforeSetup() {
         //Given
         List<Message<String>> expectedMessages = getReadMessages(getMessages());
         final List<Message<String>> actualMessages = new ArrayList<Message<String>>();
@@ -88,6 +88,24 @@ public class ChronicleQueueShould {
                 System.out.println(message.toString());
             }
         }, -1);
+
+        //Then
+        MatcherAssert.assertThat(expectedMessages, containsInAnyOrder(actualMessages.toArray()));
+    }
+
+    @Test
+    public void shouldReadMessagesAfterSetup() {
+        //Given
+        List<Message<String>> expectedMessages = getReadMessages(getMessages());
+        final List<Message<String>> actualMessages = new ArrayList<Message<String>>();
+        //When
+        chronicleQueue.readMessages(new MessageListener() {
+            public void onMessage(Message message) {
+                actualMessages.add(message);
+                System.out.println(message.toString());
+            }
+        }, -1);
+        chronicleQueue.publishMessages(getMessages(), messageSize);
         //Then
         MatcherAssert.assertThat(expectedMessages, containsInAnyOrder(actualMessages.toArray()));
     }
