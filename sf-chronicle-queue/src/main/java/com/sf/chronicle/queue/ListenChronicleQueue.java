@@ -31,15 +31,18 @@ public class ListenChronicleQueue {
         }
     }
 
-    public void listen(MessageListener messageListener, Integer fromIndex) {
+    public long listen(MessageListener messageListener, long fromIndex) {
         // While until there is a new Excerpt to read
-        this.excerptTailer.index(fromIndex);
+        long currentIndex = fromIndex;
+        this.excerptTailer.index(currentIndex);
         while (this.excerptTailer.nextIndex()) {
             // Read the object
             Message<String> actual = (Message<String>) this.excerptTailer.readObject();
             messageListener.onMessage(actual);
+            currentIndex = actual.index;
             // Make the reader ready for next read
             this.excerptTailer.finish();
         }
+        return currentIndex;
     }
 }

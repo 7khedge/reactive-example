@@ -48,8 +48,8 @@ public class ChronicleQueue {
         publishChronicleQueue.publishMessages(messages, messageSize);
     }
 
-    public void readMessages(MessageListener messageListener, Integer fromIndex) {
-        listenChronicleQueue.listen(messageListener,fromIndex);
+    public long readMessages(MessageListener messageListener, long fromIndex) {
+        return listenChronicleQueue.listen(messageListener,fromIndex);
     }
 
     public void close(){
