@@ -5,11 +5,13 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.sf.chronicle.queue.PersistenceSpaces.DEFAULT;
+
 /**
  * Created by adityasofat on 22/01/2016.
  */
 public class PersistentArrayShould {
-    PersistenceSpace persistenceSpace = PersistenceSpaces.defaultPersistenceSpace();
+    PersistenceSpace persistenceSpace = PersistenceSpaces.persistenceSpace(false, DEFAULT);
 
     @Before
     public void setup() {

@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sf.chronicle.queue.PersistenceSpaces.DEFAULT;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 
@@ -26,7 +27,7 @@ public class ChronicleQueueShould {
 
     @Before
     public void setup() {
-        persistenceSpace = PersistenceSpaces.defaultPersistenceSpace();
+        persistenceSpace = PersistenceSpaces.persistenceSpace(false, DEFAULT);
         chronicleQueue = new ChronicleQueue("eventQueue", persistenceSpace);
         chronicleQueue.init();
     }
@@ -34,7 +35,7 @@ public class ChronicleQueueShould {
     @After
     public void tearDown() {
         chronicleQueue.close();
-        persistenceSpace.removePersistenceSpace();
+      //  persistenceSpace.removePersistenceDirectory();
     }
 
     @Test
@@ -42,7 +43,7 @@ public class ChronicleQueueShould {
         //Given
         //When
         try {
-            chronicleQueue.publishMessages(getMessages(),messageSize);
+            chronicleQueue.publishMessages(MessageUtil.getMessages(),messageSize);
         }catch(RuntimeException e){
             MatcherAssert.assertThat("Exception found " + e.getMessage(), false, CoreMatchers.equalTo(true));
         }
@@ -53,7 +54,7 @@ public class ChronicleQueueShould {
         //Given
         //When
         try {
-            chronicleQueue.publishMessage(getMessages().get(0),messageSize);
+            chronicleQueue.publishMessage(MessageUtil.getMessages().get(0),messageSize);
         }catch(RuntimeException e){
             MatcherAssert.assertThat("Exception found " + e.getMessage(), false, CoreMatchers.equalTo(true));
         }
@@ -62,10 +63,10 @@ public class ChronicleQueueShould {
     @Test
     public void shouldPublishAndAReadMessage() {
         //Given
-        Message<String> expectedMessage = getReadMessages(getMessages()).get(0);
+        Message<String> expectedMessage = getReadMessages(MessageUtil.getMessages()).get(0);
         final List<Message<String>> actualMessages = new ArrayList<Message<String>>();
         //When
-        chronicleQueue.publishMessage(getMessages().get(0), messageSize);
+        chronicleQueue.publishMessage(MessageUtil.getMessages().get(0), messageSize);
         chronicleQueue.readMessages(new MessageListener() {
             public void onMessage(Message message) {
                 actualMessages.add(message);
@@ -79,10 +80,10 @@ public class ChronicleQueueShould {
     @Test
     public void shouldReadMessagesPublishedBeforeSetup() {
         //Given
-        List<Message<String>> expectedMessages = getReadMessages(getMessages());
+        List<Message<String>> expectedMessages = getReadMessages(MessageUtil.getMessages());
         final List<Message<String>> actualMessages = new ArrayList<Message<String>>();
         //When
-        chronicleQueue.publishMessages(getMessages(), messageSize);
+        chronicleQueue.publishMessages(MessageUtil.getMessages(), messageSize);
         chronicleQueue.readMessages(new MessageListener() {
             public void onMessage(Message message) {
                 actualMessages.add(message);
@@ -98,7 +99,7 @@ public class ChronicleQueueShould {
     @Ignore("Fixing Chronicle to be reactive")
     public void shouldReadMessagesAfterSetup() {
         //Given
-        List<Message<String>> expectedMessages = getReadMessages(getMessages());
+        List<Message<String>> expectedMessages = getReadMessages(MessageUtil.getMessages());
         final List<Message<String>> actualMessages = new ArrayList<Message<String>>();
         //When
         chronicleQueue.readMessages(new MessageListener() {
@@ -107,20 +108,11 @@ public class ChronicleQueueShould {
                 System.out.println(message.toString());
             }
         }, -1);
-        chronicleQueue.publishMessages(getMessages(), messageSize);
+        chronicleQueue.publishMessages(MessageUtil.getMessages(), messageSize);
         //Then
         MatcherAssert.assertThat(expectedMessages, containsInAnyOrder(actualMessages.toArray()));
     }
 
-    private List<Message<String>> getMessages() {
-        List<Message<String>> messages = new ArrayList<Message<String>>();
-        messages.add(new Message<String>("message0"));
-        messages.add(new Message<String>("message1"));
-        messages.add(new Message<String>("message2"));
-        messages.add(new Message<String>("message3"));
-        messages.add(new Message<String>("message4"));
-        return messages;
-    }
 
     private List<Message<String>> getReadMessages(List<Message<String>> messages) {
         int index = 0;

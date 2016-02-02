@@ -1,13 +1,20 @@
 package com.sf.chronicle.queue;
 
+
+
 /**
  * Created by adityasofat on 22/01/2016.
  */
 public class PersistenceSpaces {
 
+    public static final String DEFAULT = "default";
 
-    public static PersistenceSpace defaultPersistenceSpace() {
-        PersistenceSpace persistenceSpace = new PersistenceSpace(getTemporaryDirectory(), "default");
+    public static PersistenceSpace persistenceSpace(String name) {
+        return persistenceSpace(false, name);
+    }
+
+    public static PersistenceSpace persistenceSpace(boolean keepDirectory, String name) {
+        PersistenceSpace persistenceSpace = new PersistenceSpace(getTemporaryDirectory(), name, keepDirectory);
         persistenceSpace.createPersistenceSpace();
         return persistenceSpace;
     }

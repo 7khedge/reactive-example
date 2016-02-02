@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Properties;
 
+import static com.sf.chronicle.queue.PersistenceSpaces.DEFAULT;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -16,20 +17,28 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class PersistenceSpaceShould {
     //Given
-    private PersistenceSpace persistenceSpace = PersistenceSpaces.defaultPersistenceSpace();
+    private PersistenceSpace persistenceSpace = PersistenceSpaces.persistenceSpace(false, DEFAULT);
 
     @After
     public void tearDown() {
-        File queueDirectory = new File(persistenceSpace.getPath());
-        if ( queueDirectory.exists()) {
-            queueDirectory.delete();
-        }
+        persistenceSpace.removePersistenceDirectory();
+    }
+
+
+    @Test
+    public void removeOnlyQueueFiles()  {
+        //Given
+        PersistenceSpace persistenceSpace = PersistenceSpaces.persistenceSpace(true, "doNotRemove");
+        //When
+        persistenceSpace.removePersistenceDirectory();
+        //Then
+        assertThatDirectory(true, persistenceSpace.getPath());
     }
 
     @Test
     public void createPersistenceSpace() throws Exception {
         //When
-        persistenceSpace.createPersistenceSpace();
+
         //Then
         assertThatDirectory(true, persistenceSpace.getPath());
     }
@@ -39,7 +48,7 @@ public class PersistenceSpaceShould {
         //Given
         persistenceSpace.createPersistenceSpace();
         //When
-        persistenceSpace.removePersistenceSpace();
+        persistenceSpace.removePersistenceDirectory();
         //Then
         assertThatDirectory(false, persistenceSpace.getPath());
     }
