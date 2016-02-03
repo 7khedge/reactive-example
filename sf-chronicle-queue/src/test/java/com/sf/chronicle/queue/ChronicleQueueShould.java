@@ -35,7 +35,7 @@ public class ChronicleQueueShould {
     @After
     public void tearDown() {
         chronicleQueue.close();
-      //  persistenceSpace.removePersistenceDirectory();
+      //  persistenceSpace.removePersistenceSpace();
     }
 
     @Test

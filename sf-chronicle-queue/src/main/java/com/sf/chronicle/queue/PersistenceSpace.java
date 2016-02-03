@@ -23,7 +23,7 @@ public class PersistenceSpace {
     }
 
     public void createPersistenceSpace() {
-        removePersistenceDirectory();
+        removePersistenceSpace();
         createPersistenceDirectorty();
     }
 
@@ -35,7 +35,7 @@ public class PersistenceSpace {
         }
     }
 
-    public void removePersistenceDirectory() {
+    public void removePersistenceSpace() {
         if (!this.keepDirectory) {
             if (directory.exists()) {
                 removeDirectoryFiles(directory.list());

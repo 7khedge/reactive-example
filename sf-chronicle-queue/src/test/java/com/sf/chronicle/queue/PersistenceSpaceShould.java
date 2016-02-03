@@ -21,7 +21,7 @@ public class PersistenceSpaceShould {
 
     @After
     public void tearDown() {
-        persistenceSpace.removePersistenceDirectory();
+        persistenceSpace.removePersistenceSpace();
     }
 
 
@@ -30,7 +30,7 @@ public class PersistenceSpaceShould {
         //Given
         PersistenceSpace persistenceSpace = PersistenceSpaces.persistenceSpace(true, "doNotRemove");
         //When
-        persistenceSpace.removePersistenceDirectory();
+        persistenceSpace.removePersistenceSpace();
         //Then
         assertThatDirectory(true, persistenceSpace.getPath());
     }
@@ -48,7 +48,7 @@ public class PersistenceSpaceShould {
         //Given
         persistenceSpace.createPersistenceSpace();
         //When
-        persistenceSpace.removePersistenceDirectory();
+        persistenceSpace.removePersistenceSpace();
         //Then
         assertThatDirectory(false, persistenceSpace.getPath());
     }

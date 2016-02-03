@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by adityasofat on 21/01/2016.
  */
-public class ChronicleQueue {
+public class ChronicleQueue<T> {
 
     private final String queueName;
     private final PersistenceSpace persistenceSpace;
@@ -40,11 +40,11 @@ public class ChronicleQueue {
         listenChronicleQueue.init();
     }
 
-    public <T> void publishMessage(Message<T> message, int messageSize) {
+    public void publishMessage(Message<T> message, int messageSize) {
         publishChronicleQueue.publishMessage(message, messageSize);
     }
 
-    public <T> void publishMessages(List<Message<T>> messages, int messageSize) {
+    public void publishMessages(List<Message<T>> messages, int messageSize) {
         publishChronicleQueue.publishMessages(messages, messageSize);
     }
 

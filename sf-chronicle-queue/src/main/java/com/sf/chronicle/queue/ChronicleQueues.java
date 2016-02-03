@@ -6,9 +6,19 @@ package com.sf.chronicle.queue;
 public class ChronicleQueues {
 
 
-    public static ChronicleQueue newQueue(String channelName, PersistenceSpace persistenceSpace) {
-        ChronicleQueue chronicleQueue = new ChronicleQueue(channelName, persistenceSpace);
+    public static <T> ChronicleQueue newQueue(String channelName, PersistenceSpace persistenceSpace) {
+        ChronicleQueue<T> chronicleQueue = new ChronicleQueue<T>(channelName, persistenceSpace);
         chronicleQueue.init();
         return chronicleQueue;
     }
+
+    public static <T> ChronicleQueue newObservableQueue(String channelName, PersistenceSpace persistenceSpace) {
+        ChronicleQueue<T> chronicleQueue = new ChronicleQueue<T>(channelName, persistenceSpace);
+        chronicleQueue.init();
+
+
+        return chronicleQueue;
+    }
+
+
 }

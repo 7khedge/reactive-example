@@ -6,7 +6,6 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import rx.Observable;
 import rx.Observer;
@@ -36,7 +35,7 @@ public class ReactiveChronicleQueueShould {
 
     @Before
     public void setup() {
-        persistenceSpace = PersistenceSpaces.persistenceSpace(false, DEFAULT);
+        persistenceSpace = PersistenceSpaces.persistenceSpace(true, DEFAULT);
         chronicleQueue = new ChronicleQueue("eventQueue", persistenceSpace);
         chronicleQueue.init();
     }
@@ -44,7 +43,7 @@ public class ReactiveChronicleQueueShould {
     @After
     public void tearDown() {
         chronicleQueue.close();
-        persistenceSpace.removePersistenceDirectory();
+        persistenceSpace.removePersistenceSpace();
     }
 
 
@@ -175,7 +174,7 @@ public class ReactiveChronicleQueueShould {
 
 
     @Test
-    @Ignore("Util test method required by readMessagesFromQueue")
+ //   @Ignore("Util test method required by readMessagesFromQueue")
     public void shouldPublishMessages() {
         //Given
         //When
@@ -187,7 +186,7 @@ public class ReactiveChronicleQueueShould {
     }
 
     @Test
-    @Ignore("Thread waiting test")
+ //   @Ignore("Thread waiting test")
     public void readMessagesFromQueue() throws InterruptedException {
 
         Subscriber<String> stringSafeSubscriber = new SafeSubscriber<String>(new Subscriber<String>() {
