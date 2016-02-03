@@ -21,7 +21,7 @@ public class ListenChronicleQueueObserver<T> implements ListenChannel<T> {
     private final ChronicleQueue<T> chronicleQueue;
     private final int startIndex;
     private ConnectableObservable<T> observer;
-    private Subscriber subscriber;
+    private Subscriber<T> subscriber;
 
     public ListenChronicleQueueObserver(String name, Adaptor<T> adaptor, ChronicleQueue<T> chronicleQueue, int startIndex) {
         this.name = name;
