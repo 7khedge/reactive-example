@@ -100,7 +100,6 @@ public class ListenChronicleQueueObserver<T> implements ListenChannel<T> {
                             }
                         } catch (InterruptedException e) {
                             System.out.println(e);
-                        } finally {
                         }
                     }
                 }
