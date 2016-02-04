@@ -12,16 +12,14 @@ import java.util.List;
 public class ChronicleQueue<T> {
 
     private final String queueName;
-    private final PersistenceSpace persistenceSpace;
     private final String queuePath;
     private IndexedChronicle indexedChronicle;
     private PublishChronicleQueue publishChronicleQueue;
-    private ListenChronicleQueue listenChronicleQueue;
+    private ListenChronicleQueue<T> listenChronicleQueue;
 
     public ChronicleQueue(String queueName, PersistenceSpace persistenceSpace) {
         this.queueName = queueName;
-        this.persistenceSpace = persistenceSpace;
-        this.queuePath = this.persistenceSpace.getPath() + File.separator + queueName;
+        this.queuePath = persistenceSpace.getPath() + File.separator + queueName;
     }
 
     public String getQueueName() {
@@ -36,7 +34,7 @@ public class ChronicleQueue<T> {
         }
         publishChronicleQueue = new PublishChronicleQueue(indexedChronicle);
         publishChronicleQueue.init();
-        listenChronicleQueue = new ListenChronicleQueue(indexedChronicle);
+        listenChronicleQueue = new ListenChronicleQueue<T>(indexedChronicle);
         listenChronicleQueue.init();
     }
 
@@ -48,7 +46,7 @@ public class ChronicleQueue<T> {
         publishChronicleQueue.publishMessages(messages, messageSize);
     }
 
-    public long readMessages(MessageListener messageListener, long fromIndex) {
+    public long readMessages(MessageListener<T> messageListener, long fromIndex) {
         return listenChronicleQueue.listen(messageListener,fromIndex);
     }
 

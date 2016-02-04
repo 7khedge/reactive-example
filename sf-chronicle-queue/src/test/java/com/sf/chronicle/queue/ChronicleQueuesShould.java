@@ -16,7 +16,7 @@ public class ChronicleQueuesShould {
         //Given
         String channelName = "reader";
         //When
-        ChronicleQueue chronicleQueue = ChronicleQueues.newQueue(channelName, PersistenceSpaces.persistenceSpace(false, DEFAULT));
+        ChronicleQueue chronicleQueue = ChronicleQueues.<String>newQueue(channelName, PersistenceSpaces.persistenceSpace(false, DEFAULT));
         //Then
         MatcherAssert.assertThat(chronicleQueue.getQueueName(), CoreMatchers.equalTo(channelName));
     }

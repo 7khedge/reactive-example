@@ -15,8 +15,6 @@ public class ChronicleQueues {
     public static <T> ChronicleQueue newObservableQueue(String channelName, PersistenceSpace persistenceSpace) {
         ChronicleQueue<T> chronicleQueue = new ChronicleQueue<T>(channelName, persistenceSpace);
         chronicleQueue.init();
-
-
         return chronicleQueue;
     }
 
