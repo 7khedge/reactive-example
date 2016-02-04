@@ -45,6 +45,8 @@ public class PersistentArrayBuilder {
     }
 
     public PersistentArray build() {
-        return new PersistentArray(this.directory + File.separator + this.name, fileSize, itemSize);
+        PersistentArray persistentArray = new PersistentArray(this.directory + File.separator + this.name, fileSize, itemSize);
+        persistentArray.init();
+        return persistentArray;
     }
 }

@@ -26,7 +26,6 @@ public class PersistentArrayShould {
                 .fileSize(1024)
                 .itemSize(14)
                 .build();
-        persistentArray.init();
         persistentArray.put(getQueueEntry(0, 0).getBytes(), 0);
         persistentArray.put(getQueueEntry(0, 1).getBytes(), 0);
         persistentArray.put(getQueueEntry(1, 0).getBytes(), 1);
@@ -39,7 +38,6 @@ public class PersistentArrayShould {
                 .fileSize(1024)
                 .itemSize(14)
                 .build();
-        persistentArrayRead.init();
         String queue0 = new String(persistentArrayRead.read(0));
         String queue1 = new String(persistentArrayRead.read(1));
         persistentArrayRead.close();
