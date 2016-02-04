@@ -16,15 +16,13 @@ import java.util.concurrent.TimeUnit;
  */
 public class ListenChronicleQueueObserver<T> implements ListenChannel<T> {
 
-    private final String name;
     private final Adaptor<T> adaptor;
     private final ChronicleQueue<T> chronicleQueue;
     private final int startIndex;
     private ConnectableObservable<T> observer;
     private Subscriber<T> subscriber;
 
-    public ListenChronicleQueueObserver(String name, Adaptor<T> adaptor, ChronicleQueue<T> chronicleQueue, int startIndex) {
-        this.name = name;
+    public ListenChronicleQueueObserver(ChronicleQueue<T> chronicleQueue, int startIndex, Adaptor<T> adaptor) {
         this.adaptor = adaptor;
         this.chronicleQueue = chronicleQueue;
         this.startIndex = startIndex;
@@ -37,7 +35,7 @@ public class ListenChronicleQueueObserver<T> implements ListenChannel<T> {
 
     @Override
     public String getName() {
-        return this.name;
+        return this.chronicleQueue.getQueueName();
     }
 
     @Override

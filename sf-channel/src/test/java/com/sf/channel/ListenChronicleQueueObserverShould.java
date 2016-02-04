@@ -35,7 +35,7 @@ public class ListenChronicleQueueObserverShould {
         };
         String channelName = "observedChannel";
         ChronicleQueue<String> stringChronicleQueue = ChronicleQueues.<String>newObservableQueue(channelName, PersistenceSpaces.persistenceSpace(DEFAULT));
-        ListenChronicleQueueObserver<String> stringListenChronicleQueueObserver = new ListenChronicleQueueObserver<String>(channelName, stringAdaptor, stringChronicleQueue, -1);
+        ListenChronicleQueueObserver<String> stringListenChronicleQueueObserver = new ListenChronicleQueueObserver<String>(stringChronicleQueue, -1, stringAdaptor);
         stringListenChronicleQueueObserver.init();
         stringChronicleQueue.publishMessages(MessageUtil.getMessages(),128);
         countDownLatch.await();
