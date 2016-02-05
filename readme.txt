@@ -23,16 +23,17 @@ Event:StartJob
         or
         ->publish [JobReaderProcessor]start_job[jobInstanceId]
 
-[JobReaderProcessor]Message:start_job[jobInstanceId]
+[JobReadProcess]Message:start_job[jobInstanceId]
     ->JobCache::GetJob[jobInstanceId]
     ->itemReader[fileName] (stream, reactiveObservable)
     ->itemProcessor[publish [Status no_change | error] |  [JobWriter pending_change [CUD] ]
+
 [JobWrite]Message:change[CUD] [jobInstanceId | recordId]
+    ->JobCache::GetJob[jobInstanceId]
     ->itemWrite[publish [Status change[CUD] | error]]
 
-[Status]Message:no_change [jobInstanceId | recordId]
-[Status]Message:pending_change[CUD] [jobInstanceId | recordId]
-[Status]Message:change[CUD] [jobInstanceId | recordId]
-    ->jobManager[ update db stats (batch update every n seconds) | write to file ]
-[Status]Error:error [jobInstanceId | recordId]
+[JobJournal]Message:no_change [jobInstanceId | recordId]
+[JobJournal]Message:pending_change[CUD] [jobInstanceId | recordId]
+[JobJournal]Message:change[CUD] [jobInstanceId | recordId]
+[JobJournal]Message:error [jobInstanceId | recordId]
     ->jobManager[ update db stats (batch update every n seconds) | write to file  | jobCompletion(success | terminated) ]
