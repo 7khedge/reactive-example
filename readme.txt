@@ -38,22 +38,25 @@ JobManager
 JobJournalist
     ->journal to file
     ->update to db (batch update every n seconds)
+    ->logErrors for sentinel
 
 [JobReadProcess]Message:start_job[jobInstanceId]
     ->JobCache::GetJob[jobInstanceId]
     ->itemReader[fileName] (stream, reactiveObservable)
         ->[publish [JobJournal completion (itemReader,recordCount)]]
     ->itemProcessor[publish [JobJournal no_change | pending_change | error] &&  [JobWriter pending_change [CUD] ]
-        ->[publish [JobJournal completion (itemProcessor,recordCount) (itemWrite,recordCount)]]
+        ->[publish [JobJournal completion (itemProcessor,recordCount) ]]
+        ->[publish [JobJournal expected (itemWriter,recordCount) ]]
 
 [JobWrite]Message:change[CUD] [jobInstanceId | recordId]
     ->JobCache::GetJob[jobInstanceId]
-    ->itemWrite[publish [JobJournal change[CUD] | error]]
+    ->itemWriter[publish [JobJournal change[CUD] | error]]
 
 [JobJournal]Message:no_change [jobInstanceId | recordId]
 [JobJournal]Message:pending_change[CUD] [jobInstanceId | recordId]
 [JobJournal]Message:change[CUD] [jobInstanceId | recordId]
-[JobJournal]Message:error [jobInstanceId | recordId]
-[JobJournal]Message:completion [workerName(reader|processor|writer) | recordCount]
-    ->jobJournalist[ update db stats (batch update every n seconds) | write to file | logErrors]
-    ->jobManager [ update internal state ]
+[JobJournal]Message:error       [jobInstanceId | recordId]
+[JobJournal]Message:completion  [workerName(reader|processor|writer) | recordCount]
+[JobJournal]Message:expected    [workerName(writer) | recordCount]
+    ->jobJournalist[ update to db (batch update every n seconds) | write to file | logErrors] (multiple threaded io subscriber)
+    ->jobManager [ update internal state ] (single threaded subscriber)
