@@ -9,6 +9,7 @@ JobSpecification
 JobInstance
     :type   <JobSpecification:name>
     :jobInstanceId
+    :jobManager
 
 JobCache
     :key    <JobSpecification>
@@ -24,21 +25,35 @@ Event:StartJob
         ->publish [JobReaderProcessor]start_job[jobInstanceId]
 
 JobManager
-    -> update status
-    -> set completion status [success | error]
-    ->
+    :itemReader(recordCount)
+    :itemProcessor(recordCount)
+    :itemWriter (recordCount)
+    :statistics
+    :jobTerminateFlag (AtomicBoolean)
+    ->updateStatistics
+    ->checkCompletion
+        ->skip termination logic
+        ->all completion messages received
+
+JobJournalist
+    ->journal to file
+    ->update to db (batch update every n seconds)
 
 [JobReadProcess]Message:start_job[jobInstanceId]
     ->JobCache::GetJob[jobInstanceId]
     ->itemReader[fileName] (stream, reactiveObservable)
-    ->itemProcessor[publish [Status no_change | error] |  [JobWriter pending_change [CUD] ]
+        ->[publish [JobJournal completion (itemReader,recordCount)]]
+    ->itemProcessor[publish [JobJournal no_change | pending_change | error] &&  [JobWriter pending_change [CUD] ]
+        ->[publish [JobJournal completion (itemProcessor,recordCount) (itemWrite,recordCount)]]
 
 [JobWrite]Message:change[CUD] [jobInstanceId | recordId]
     ->JobCache::GetJob[jobInstanceId]
-    ->itemWrite[publish [Status change[CUD] | error]]
+    ->itemWrite[publish [JobJournal change[CUD] | error]]
 
 [JobJournal]Message:no_change [jobInstanceId | recordId]
 [JobJournal]Message:pending_change[CUD] [jobInstanceId | recordId]
 [JobJournal]Message:change[CUD] [jobInstanceId | recordId]
 [JobJournal]Message:error [jobInstanceId | recordId]
-    ->jobManager[ update db stats (batch update every n seconds) | write to file  | jobCompletion(success | terminated) ]
+[JobJournal]Message:completion [workerName(reader|processor|writer) | recordCount]
+    ->jobJournalist[ update db stats (batch update every n seconds) | write to file | logErrors]
+    ->jobManager [ update internal state ]
