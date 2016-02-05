@@ -23,6 +23,11 @@ Event:StartJob
         or
         ->publish [JobReaderProcessor]start_job[jobInstanceId]
 
+JobManager
+    -> update status
+    -> set completion status [success | error]
+    ->
+
 [JobReadProcess]Message:start_job[jobInstanceId]
     ->JobCache::GetJob[jobInstanceId]
     ->itemReader[fileName] (stream, reactiveObservable)
