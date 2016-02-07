@@ -71,5 +71,5 @@ JobJournalist
 [JobJournal]Message:completion  [workerName(reader|processor|writer) | recordCount]
 [JobJournal]Message:expected    [workerName(writer) | recordCount]
     ->jobJournalist[ write to file | logErrors ] (multiple threaded io subscriber)
-    ->jobManager [ update execution ] (single threaded subscriber)
+    ->jobManager [ update execution state ] (single threaded subscriber)
     ->jobNotifier [publish jobExecution periodically]
