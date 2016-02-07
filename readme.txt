@@ -4,6 +4,7 @@ JobDefinition
     :itemReader     [create message for each record]
     :itemProcessor  [generate checksum | compare checksum | change event ]
     :itemWriter     [change event -> source]
+    :jobExecutionParameters<JEParam>
 
 JobCache
     :key    <jobDefinitionId>
@@ -20,6 +21,8 @@ JobManager
     :StopJob
         ->jobExecution::stopJob = 1
 
+JobNotifier
+    :interval reactive Observable [ emits JobExecution to subscribers ]
 
 JobExecution<JEParam,Integer><P,A>[completion_status | stats ]
     :jobDefinitionId
@@ -28,11 +31,11 @@ JobExecution<JEParam,Integer><P,A>[completion_status | stats ]
     :stopTime
     :status
     :error
+    :stopJob (AtomicInteger)
     :Map<P,A>
         itemReader          count
         itemProcessor       count
         itemWrite           count
-        stopJob             0/1
         deltaNoChange       count
         deltaCreatePending  count
         deltaUpdatePending  count
@@ -67,5 +70,6 @@ JobJournalist
 [JobJournal]Message:error       [jobInstanceId | recordId]
 [JobJournal]Message:completion  [workerName(reader|processor|writer) | recordCount]
 [JobJournal]Message:expected    [workerName(writer) | recordCount]
-    ->jobJournalist[ update to db (batch update every n seconds) | write to file | logErrors] (multiple threaded io subscriber)
-    ->JobExecution [ update internal state ] (single threaded subscriber)
+    ->jobJournalist[ write to file | logErrors ] (multiple threaded io subscriber)
+    ->jobManager [ update execution ] (single threaded subscriber)
+    ->jobNotifier [publish jobExecution periodically]
