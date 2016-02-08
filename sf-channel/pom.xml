@@ -14,12 +14,12 @@
     <dependencies>
         <!-- project modules -->
         <dependency>
-            <groupId>com.sf.</groupId>
+            <groupId>com.sf</groupId>
             <artifactId>sf-chronicle-queue</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.sf.</groupId>
+            <groupId>com.sf</groupId>
             <artifactId>sf-chronicle-queue</artifactId>
             <version>${project.parent.version}</version>
             <type>test-jar</type>

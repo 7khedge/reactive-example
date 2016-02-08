@@ -18,6 +18,22 @@
             <artifactId>sf-job</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <!-- testing -->
+        <dependency>
+            <groupId>com.sf</groupId>
+            <artifactId>sf-util</artifactId>
+            <version>${project.parent.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

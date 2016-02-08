@@ -32,7 +32,7 @@ JobExecution<JEParam,Integer><P,A>[completion_status | stats ]
     :status
     :error
     :stopJob (AtomicInteger)
-    :Map<P,A>
+    :Map<Enum,A>
         itemReader          count
         itemProcessor       count
         itemWrite           count
