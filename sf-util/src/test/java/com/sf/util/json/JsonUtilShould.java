@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,12 +28,13 @@ public class JsonUtilShould {
     public void readJsonFileLineToMapOfStrings() throws IOException {
         JsonUtil jsonUtil = new JsonUtil();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(FileUtil.getClassPathInputStream("2_ApplicationInstance.json")));
+        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
         String line = null;
         while ((line = bufferedReader.readLine()) != null) {
-            Map<String, String> stringStringMap = jsonUtil.readJsonMap(line);
-            System.out.println(stringStringMap);
+            data.add(jsonUtil.readJsonMap(line));
         }
         bufferedReader.close();
+        MatcherAssert.assertThat(data.size(), CoreMatchers.equalTo(10));
     }
 
     @Test( expected = IllegalStateException.class)
