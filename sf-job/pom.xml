@@ -12,6 +12,23 @@
     <artifactId>sf-job</artifactId>
 
     <dependencies>
+        <!-- project modules -->
+        <dependency>
+            <groupId>com.sf</groupId>
+            <artifactId>sf-util</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sf</groupId>
+            <artifactId>sf-test</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- reactive  -->
+        <dependency>
+            <groupId>io.reactivex</groupId>
+            <artifactId>rxjava</artifactId>
+        </dependency>
         <!-- testing -->
         <dependency>
             <groupId>junit</groupId>

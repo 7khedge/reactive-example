@@ -7,17 +7,20 @@ import java.util.EnumMap;
  */
 public class JobDefinition<F,T,E extends Enum<E>> {
     private final String jobName;
-    private final ItemReader<F> itemReader;
-    private final ItemProcessor<F,T> itemProcessor;
+    private final IdKey idKey;
+    private final ItemReader<F,T> itemReader;
+    private final ItemProcessor<T> itemProcessor;
     private final ItemWriter<T> itemWriter;
     private final EnumMap<E,Integer> jobExecutionParameters;
 
     public JobDefinition(String jobName,
-                         ItemReader<F> itemReader,
-                         ItemProcessor<F, T> itemProcessor,
+                         IdKey idKey,
+                         ItemReader<F,T> itemReader,
+                         ItemProcessor<T> itemProcessor,
                          ItemWriter<T> itemWriter,
                          EnumMap<E,Integer> jobExecutionParameters) {
         this.jobName = jobName;
+        this.idKey = idKey;
         this.itemReader = itemReader;
         this.itemProcessor = itemProcessor;
         this.itemWriter = itemWriter;
@@ -28,11 +31,15 @@ public class JobDefinition<F,T,E extends Enum<E>> {
         return jobName;
     }
 
-    public ItemReader<F> getItemReader() {
+    public IdKey getIdKey() {
+        return idKey;
+    }
+
+    public ItemReader<F,T> getItemReader() {
         return itemReader;
     }
 
-    public ItemProcessor<F, T> getItemProcessor() {
+    public ItemProcessor<T> getItemProcessor() {
         return itemProcessor;
     }
 

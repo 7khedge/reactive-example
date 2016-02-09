@@ -1,6 +1,7 @@
 JobDefinition
     :jobDefinitionId
     :jobName
+    :IdKey
     :itemReader     [create message for each record]
     :itemProcessor  [generate checksum | compare checksum | change event ]
     :itemWriter     [change event -> source]
@@ -73,3 +74,20 @@ JobJournalist
     ->jobJournalist[ write to file | logErrors ] (multiple threaded io subscriber)
     ->jobManager [ update execution state ] (single threaded subscriber)
     ->jobNotifier [publish jobExecution periodically]
+
+Flow:
+    JobManager:startJob
+        JobCache:AddJob
+    JobRunner:
+        ItemReaderFactory
+            DeltaJob
+                createDeltaJob
+            OpenFile
+                ItemReader(readLine)->JsonRecord
+        ItemProcessor(JsonRecord)->DeltaRecord
+            Extract Id
+            GenerateHashCode
+            DeltaCache:Query if DeltaRecord exists
+        ItemWriter(DeltaRecord)
+            WriteJsonPayLoad to Kafka
+

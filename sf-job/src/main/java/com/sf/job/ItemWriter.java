@@ -5,5 +5,5 @@ package com.sf.job;
  */
 public interface ItemWriter<T> {
 
-    void write(T item) throws Exception;
+    void write(T item);
 }

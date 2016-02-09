@@ -1,13 +1,11 @@
 package com.sf.job;
 
 
-import java.util.Optional;
-
 /**
  * Created by adityasofat on 11/11/2015.
  */
-public interface ItemReader<T> {
+public interface ItemReader<F,T> {
 
-    Optional<T> readItem();
+    T readItem(F f);
 
 }

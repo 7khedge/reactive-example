@@ -1,4 +1,4 @@
-package com.sf.jobs.testjob;
+package com.sf.job.testjob;
 
 
 

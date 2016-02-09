@@ -14,6 +14,7 @@
         <module>sf-channel</module>
         <module>sf-job</module>
         <module>sf-jobs</module>
+        <module>sf-test</module>
     </modules>
 
     <properties>

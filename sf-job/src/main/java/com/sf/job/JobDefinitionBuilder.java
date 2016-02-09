@@ -8,8 +8,9 @@ import java.util.EnumMap;
 public class JobDefinitionBuilder<F,T,E extends Enum<E>> {
 
     private String jobName;
-    private ItemReader<F> itemReader;
-    private ItemProcessor<F, T> itemProcessor;
+    private IdKey idKey;
+    private ItemReader<F,T> itemReader;
+    private ItemProcessor<T> itemProcessor;
     private ItemWriter<T> itemWriter;
     private EnumMap<E,Integer> jobExecutionParameters;
 
@@ -20,31 +21,36 @@ public class JobDefinitionBuilder<F,T,E extends Enum<E>> {
         return new JobDefinitionBuilder<F,T,E>();
     }
 
-    public JobDefinitionBuilder name(String jobName) {
+    public JobDefinitionBuilder<F,T,E> name(String jobName) {
         this.jobName = jobName;
         return this;
     }
 
-    public JobDefinition<F,T,E> build() {
-        return new JobDefinition<F,T,E>(jobName,itemReader, itemProcessor, itemWriter, jobExecutionParameters);
+    public JobDefinitionBuilder<F,T,E> idKey(IdKey idKey){
+        this.idKey = idKey;
+        return this;
     }
 
-    public JobDefinitionBuilder itemReader(ItemReader<F> itemReader) {
+    public JobDefinition<F,T,E> build() {
+        return new JobDefinition<F,T,E>(jobName, idKey, itemReader,  itemProcessor, itemWriter, jobExecutionParameters);
+    }
+
+    public JobDefinitionBuilder<F,T,E> itemReader(ItemReader<F,T> itemReader) {
         this.itemReader = itemReader;
         return this;
     }
 
-    public JobDefinitionBuilder itemProcessor(ItemProcessor<F,T> itemProcessor) {
+    public JobDefinitionBuilder<F,T,E> itemProcessor(ItemProcessor<T> itemProcessor) {
         this.itemProcessor = itemProcessor;
         return this;
     }
 
-    public JobDefinitionBuilder itemWriter(ItemWriter<T> itemWriter) {
+    public JobDefinitionBuilder<F,T,E> itemWriter(ItemWriter<T> itemWriter) {
         this.itemWriter = itemWriter;
         return this;
     }
 
-    public JobDefinitionBuilder jobExecutionParameters(EnumMap<E,Integer> jobExecutionParameters) {
+    public JobDefinitionBuilder<F,T,E> jobExecutionParameters(EnumMap<E,Integer> jobExecutionParameters) {
         this.jobExecutionParameters = jobExecutionParameters;
         return this;
     }

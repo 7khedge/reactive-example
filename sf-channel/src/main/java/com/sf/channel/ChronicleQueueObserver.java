@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by adityasofat on 03/02/2016.
  */
-public class ListenChronicleQueueObserver<T> implements ListenChannel<T> {
+public class ChronicleQueueObserver<T> implements ListenChannel<T> {
 
     private final Adaptor<T> adaptor;
     private final ChronicleQueue<T> chronicleQueue;
@@ -22,7 +22,7 @@ public class ListenChronicleQueueObserver<T> implements ListenChannel<T> {
     private ConnectableObservable<T> observer;
     private Subscriber<T> subscriber;
 
-    public ListenChronicleQueueObserver(ChronicleQueue<T> chronicleQueue, int startIndex, Adaptor<T> adaptor) {
+    public ChronicleQueueObserver(ChronicleQueue<T> chronicleQueue, int startIndex, Adaptor<T> adaptor) {
         this.adaptor = adaptor;
         this.chronicleQueue = chronicleQueue;
         this.startIndex = startIndex;

@@ -35,8 +35,8 @@ public class ListenChronicleQueueObserverShould {
         };
         String channelName = "observedChannel";
         ChronicleQueue<String> stringChronicleQueue = ChronicleQueues.<String>newObservableQueue(channelName, PersistenceSpaces.persistenceSpace(DEFAULT));
-        ListenChronicleQueueObserver<String> stringListenChronicleQueueObserver = new ListenChronicleQueueObserver<String>(stringChronicleQueue, -1, stringAdaptor);
-        stringListenChronicleQueueObserver.init();
+        ChronicleQueueObserver<String> stringChronicleQueueObserver = new ChronicleQueueObserver<String>(stringChronicleQueue, -1, stringAdaptor);
+        stringChronicleQueueObserver.init();
         stringChronicleQueue.publishMessages(MessageUtil.getMessages(),128);
         countDownLatch.await();
         MatcherAssert.assertThat(messageCollector, Matchers.containsInAnyOrder(MessageUtil.getMessagePayLoad().toArray()));

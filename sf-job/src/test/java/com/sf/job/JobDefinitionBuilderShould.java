@@ -1,5 +1,6 @@
 package com.sf.job;
 
+import com.sf.job.testjob.*;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -9,52 +10,23 @@ import org.junit.Test;
  */
 public class JobDefinitionBuilderShould {
 
-/*
     @Test
     public void withReader(){
         //Given
         String jobName = "ApplicationInstance";
         //When
-        JobDefinition<Integer,String> jobDefinition = JobDefinitionBuilder.<Integer,String>jobDefinition()
+        IdKey idKey = new IdKey("id");
+        JobDefinition<String,JsonRecord,JobExecutionParameters> jobDefinition = JobDefinitionBuilder.<String,JsonRecord,JobExecutionParameters>jobDefinition()
                 .name(jobName)
-                .itemReader(new IntegerItemReader())
+                .idKey(idKey)
+                .itemReader(new JsonRecordItemReader(idKey))
+                .itemProcessor(new JsonRecordItemProcessor())
+                .itemWriter(new JsonMapItemWriter())
                 .build();
         //Then
-        MatcherAssert.assertThat(jobDefinition.getName(), CoreMatchers.equalTo(jobName));
+        MatcherAssert.assertThat(jobDefinition.getJobName(), CoreMatchers.equalTo(jobName));
     }
 
-    @Test
-    public void withReaderAndProcessor() {
-        //Given
-        String jobName = "ApplicationInstance";
-
-        //When
-        JobDefinition<Integer,String> jobDefinition = JobDefinitionBuilder.<Integer,String>jobDefinition()
-                .name(jobName)
-                .itemReader(new IntegerItemReader())
-                .itemProcessor(new OddIntegerProcessor())
-                .build();
-        //Then
-        MatcherAssert.assertThat(jobDefinition.getName(), CoreMatchers.equalTo(jobName));
-    }
-
-
-    @Test
-    public void withReaderProcessorAndWriter() {
-        //Given
-        String jobName = "ApplicationInstance";
-
-        //When
-        JobDefinition<Integer,String> jobDefinition = JobDefinitionBuilder.<Integer,String>jobDefinition()
-                .name(jobName)
-                .itemReader(new IntegerItemReader())
-                .itemProcessor(new OddIntegerProcessor())
-                .itemWriter(new OddStringWriter())
-                .build();
-        //Then
-        MatcherAssert.assertThat(jobDefinition.getName(), CoreMatchers.equalTo(jobName));
-    }
-*/
 
 
 
