@@ -31,7 +31,8 @@ public class FileObserver {
                                 if (line == null) {
                                     break;
                                 }
-                                subscriber.onNext(line);
+                                if(!line.isEmpty())
+                                    subscriber.onNext(line);
                             }
                             if ( !subscriber.isUnsubscribed()) {
                                 subscriber.onCompleted();
@@ -44,8 +45,6 @@ public class FileObserver {
                     }
                 }
         )
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.computation())
                 .publish();
     }
 }
