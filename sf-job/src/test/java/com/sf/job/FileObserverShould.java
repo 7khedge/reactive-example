@@ -22,17 +22,14 @@ public class FileObserverShould {
         FileObserver fileObserver = new FileObserver();
         ConnectableObservable<String> fileObservable = fileObserver.createObserver(FileUtil.getClassPathInputStream("2_ApplicationInstance.json"));
         SafeSubscriber<String> stringSafeSubscriber = new SafeSubscriber<>(new Subscriber<String>() {
-
             @Override
             public void onCompleted() {
                 System.out.println("OnCompleted");
             }
-
             @Override
             public void onError(Throwable e) {
                 System.out.println(e.getCause());
             }
-
             @Override
             public void onNext(String message) {
                 stringList.add(message);
