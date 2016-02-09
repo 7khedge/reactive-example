@@ -18,10 +18,11 @@ public class FileObserverShould {
 
     @Test
     public void emitAllLinesFromFile() throws InterruptedException {
-        final List<String> stringList = new ArrayList<String>();
+        final List<String> stringList = new ArrayList<>();
         FileObserver fileObserver = new FileObserver();
         ConnectableObservable<String> fileObservable = fileObserver.createObserver(FileUtil.getClassPathInputStream("2_ApplicationInstance.json"));
-        SafeSubscriber<String> stringSafeSubscriber = new SafeSubscriber<String>(new Subscriber<String>() {
+        SafeSubscriber<String> stringSafeSubscriber = new SafeSubscriber<>(new Subscriber<String>() {
+
             @Override
             public void onCompleted() {
                 System.out.println("OnCompleted");
