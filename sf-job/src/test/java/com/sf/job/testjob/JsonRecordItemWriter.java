@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by adityasofat on 08/02/2016.
  */
-public class JsonMapItemWriter implements ItemWriter<JsonRecord> {
+public class JsonRecordItemWriter implements ItemWriter<JsonRecord> {
 
     @Override
     public void write(JsonRecord item) {

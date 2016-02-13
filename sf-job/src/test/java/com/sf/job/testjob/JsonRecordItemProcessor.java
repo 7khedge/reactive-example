@@ -10,8 +10,11 @@ import java.util.Optional;
  */
 public class JsonRecordItemProcessor implements ItemProcessor<JsonRecord> {
 
+
+
     @Override
     public void process(JsonRecord item) {
+
         System.out.println(item);
     }
 

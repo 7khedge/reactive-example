@@ -1,5 +1,7 @@
 package com.sf.job;
 
+import rx.observables.ConnectableObservable;
+
 import java.util.EnumMap;
 
 /**
@@ -8,6 +10,7 @@ import java.util.EnumMap;
 public class JobDefinition<F,T,E extends Enum<E>> {
     private final String jobName;
     private final IdKey idKey;
+    private final ConnectableObservable<F> items;
     private final ItemReader<F,T> itemReader;
     private final ItemProcessor<T> itemProcessor;
     private final ItemWriter<T> itemWriter;
@@ -15,12 +18,14 @@ public class JobDefinition<F,T,E extends Enum<E>> {
 
     public JobDefinition(String jobName,
                          IdKey idKey,
+                         ConnectableObservable<F> items,
                          ItemReader<F,T> itemReader,
                          ItemProcessor<T> itemProcessor,
                          ItemWriter<T> itemWriter,
                          EnumMap<E,Integer> jobExecutionParameters) {
         this.jobName = jobName;
         this.idKey = idKey;
+        this.items = items;
         this.itemReader = itemReader;
         this.itemProcessor = itemProcessor;
         this.itemWriter = itemWriter;
@@ -33,6 +38,10 @@ public class JobDefinition<F,T,E extends Enum<E>> {
 
     public IdKey getIdKey() {
         return idKey;
+    }
+
+    public ConnectableObservable<F> getItems() {
+        return items;
     }
 
     public ItemReader<F,T> getItemReader() {
