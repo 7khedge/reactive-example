@@ -4,6 +4,8 @@ CREATE TABLE `jobExecution` (
   `propeties`       JSON NOT NULL,
   `startDateTime`   DATETIME NOT NULL,
   `stopDateTime`    DATETIME NOT NULL,
+  `status`          VARCHAR(32),
+  `exitMessage`     VARCHAR(2048),
 PRIMARY KEY (`jobExecutionId`),
 FOREIGN KEY (`jobId`) REFERENCES job(`jobId`)
 )

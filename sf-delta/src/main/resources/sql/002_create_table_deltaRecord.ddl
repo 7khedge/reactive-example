@@ -4,7 +4,7 @@ CREATE TABLE `deltaRecord` (
   `deltaRunName`    VARCHAR(128) NOT NULL,
   `dataKeyValue`    VARCHAR(128) NOT NULL,
   `dataHash`        VARCHAR(64) NOT NULL,
-  `status`          VARCHAR(32) NOT NULL,
+  `dataOperation`   VARCHAR(32) NOT NULL,
   `isActive`        INT(11),
   PRIMARY KEY (`deltaRecordId`),
   FOREIGN KEY (`deltaRunId`) REFERENCES deltaRun(`deltaRunId`)
