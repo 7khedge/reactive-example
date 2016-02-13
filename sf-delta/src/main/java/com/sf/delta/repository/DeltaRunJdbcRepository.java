@@ -23,6 +23,10 @@ public class DeltaRunJdbcRepository implements DeltaRunRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
+    public void init(){
+        this.insertDeltaRun.compile();
+    }
+
     @Override
     public DeltaRun insert(String deltaRunName) {
         LocalDateTime now = LocalDateTime.now();

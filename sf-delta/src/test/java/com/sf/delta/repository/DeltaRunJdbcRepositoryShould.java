@@ -17,7 +17,8 @@ public class DeltaRunJdbcRepositoryShould {
     public void createDeltaRecord(){
         //Given
         String deltaRunName = "ApplicationInstance";
-        DeltaRunRepository  deltaRunRepository = new DeltaRunJdbcRepository(dataSource());
+        DeltaRunJdbcRepository  deltaRunRepository = new DeltaRunJdbcRepository(dataSource());
+        deltaRunRepository.init();
         DeltaRun deltaRun = deltaRunRepository.insert(deltaRunName);
         MatcherAssert.assertThat(deltaRun.getDeltaRunName(), CoreMatchers.equalTo(deltaRunName));
     }
