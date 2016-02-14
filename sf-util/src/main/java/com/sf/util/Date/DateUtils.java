@@ -1,14 +1,11 @@
 package com.sf.util.date;
 
+import java.util.Date;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 
-/**
- * Created by adityasofat on 13/02/2016.
- */
 public class DateUtils {
 
     public static Date asDate(LocalDate localDate) {
