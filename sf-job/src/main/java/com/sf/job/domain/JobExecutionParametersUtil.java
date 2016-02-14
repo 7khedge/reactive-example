@@ -10,7 +10,7 @@ import java.util.Map;
 public class JobExecutionParametersUtil {
 
     public static Map<String,String> jobExecutionParametersMap(Enum[] enumOfProperties){
-        Map<String,String>  stringStringMap = new HashMap<>();
+        final Map<String,String>  stringStringMap = new HashMap<>();
         Arrays.asList(enumOfProperties).forEach(key -> stringStringMap.put(key.toString(),""));
         return stringStringMap;
     }
