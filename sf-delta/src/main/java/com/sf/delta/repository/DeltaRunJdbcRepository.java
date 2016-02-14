@@ -1,7 +1,7 @@
 package com.sf.delta.repository;
 
 import com.sf.delta.domain.DeltaRun;
-import com.sf.util.date.DateUtils;
+import com.sf.util.date.DateUtil;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
@@ -32,7 +32,7 @@ public class DeltaRunJdbcRepository implements DeltaRunRepository {
         LocalDateTime now = LocalDateTime.now();
         Map<String, Object> parameters = new HashMap<>(2);
         parameters.put("name", deltaRunName);
-        parameters.put("startDateTime", DateUtils.asDate(now));
+        parameters.put("startDateTime", DateUtil.asDate(now));
         Number newId = insertDeltaRun.executeAndReturnKey(parameters);
         return new DeltaRun(newId.longValue(), deltaRunName, now, Optional.empty());
     }

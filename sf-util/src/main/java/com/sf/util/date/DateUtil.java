@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by adityasofat on 14/02/2016.
  */
-public class DateUtils {
+public class DateUtil {
 
     public static Date asDate(LocalDate localDate) {
         return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());

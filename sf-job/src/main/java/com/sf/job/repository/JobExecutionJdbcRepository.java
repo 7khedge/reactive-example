@@ -1,7 +1,7 @@
 package com.sf.job.repository;
 
 import com.sf.job.domain.JobExecution;
-import com.sf.util.date.DateUtils;
+import com.sf.util.date.DateUtil;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
@@ -32,7 +32,7 @@ public class JobExecutionJdbcRepository implements  JobExecutionRepository {
         Map<String, Object> parameters = new HashMap<>(3);
         parameters.put("jobId", jobId);
         parameters.put("properties", properties);
-        parameters.put("startDateTime", DateUtils.asDate(startDateTime));
+        parameters.put("startDateTime", DateUtil.asDate(startDateTime));
         Number newId = insertJob.executeAndReturnKey(parameters);
         return new JobExecution(newId.longValue(), jobId, properties, now);
     }

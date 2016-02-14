@@ -13,7 +13,7 @@ import static com.sf.datasource.DataSourceUtil.simpleDatSource;
  */
 public class JobExecutionJdbcRepositoryShould {
 
-    @Test
+  /*  @Test
     public void createJobExecutionRecord(){
         //Given
         JobExecutionJdbcRepository jobExecutionJdbcRepository = new JobExecutionJdbcRepository(simpleDatSource());
@@ -28,7 +28,7 @@ public class JobExecutionJdbcRepositoryShould {
         JobJdbcRepository jobJdbcRepository = new JobJdbcRepository(simpleDatSource());
         jobJdbcRepository.init();
         return jobJdbcRepository.create(jobName, dataKey);
-    }
+    }*/
 
 
 }

@@ -6,5 +6,6 @@ package com.sf.job.domain;
 public enum JobExecutionStatus {
     RUNNING,
     STOPPED;
+
 }
 
