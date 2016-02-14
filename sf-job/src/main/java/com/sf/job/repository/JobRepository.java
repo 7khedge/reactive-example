@@ -1,6 +1,7 @@
-package com.sf.delta.repository;
+package com.sf.job.repository;
 
-import com.sf.delta.domain.Job;
+
+import com.sf.job.domain.Job;
 
 /**
  * Created by adityasofat on 13/02/2016.

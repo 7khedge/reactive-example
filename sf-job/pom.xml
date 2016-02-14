@@ -24,6 +24,15 @@
             <version>${project.parent.version}</version>
             <scope>test</scope>
         </dependency>
+        <!--jdbc-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
         <!-- reactive  -->
         <dependency>
             <groupId>io.reactivex</groupId>

@@ -9,8 +9,8 @@ import com.sf.util.file.FileUtil;
 public class JobFactory {
 
 
-    public static JobDefinition<String,JsonRecord,JobExecutionParameters> getTestJob(String jobName, IdKey idKey, String fileName){
-        return JobDefinitionBuilder.<String,JsonRecord,JobExecutionParameters>jobDefinition()
+    public static JobDefinition<String,JsonRecord,DefaultJobExecutionParameters> getTestJob(String jobName, IdKey idKey, String fileName){
+        return JobDefinitionBuilder.<String,JsonRecord,DefaultJobExecutionParameters>jobDefinition()
                 .name(jobName)
                 .idKey(idKey)
                 .connectableObservable(new FileObserver().createObserver(FileUtil.getClassPathInputStream(fileName)))

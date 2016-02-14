@@ -37,7 +37,7 @@
         <rxjava.version>1.0.10</rxjava.version>
         <!-- jdbc -->
         <spring.version>4.1.6.RELEASE</spring.version>
-        <mysql.jdbc.version>5.1.7</mysql.jdbc.version>
+        <mysql.jdbc.version>5.1.6</mysql.jdbc.version>
         <!-- testing -->
         <junit.version>4.11</junit.version>
         <hamcrest.version>1.3</hamcrest.version>

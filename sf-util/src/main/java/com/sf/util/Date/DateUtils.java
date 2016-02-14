@@ -1,4 +1,4 @@
-package com.sf.util.Date;
+package com.sf.util.date;
 
 import java.time.Instant;
 import java.time.LocalDate;

@@ -1,7 +1,7 @@
 package com.sf.delta.repository;
 
 import com.sf.delta.domain.DeltaRun;
-import com.sf.util.Date.DateUtils;
+import com.sf.util.date.DateUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;

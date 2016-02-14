@@ -18,6 +18,12 @@
             <artifactId>sf-util</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sf</groupId>
+            <artifactId>sf-test</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
+        </dependency>
         <!--jdbc-->
         <dependency>
             <groupId>org.springframework</groupId>

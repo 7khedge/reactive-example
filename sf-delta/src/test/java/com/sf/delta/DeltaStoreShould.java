@@ -1,6 +1,5 @@
 package com.sf.delta;
 
-import com.sf.delta.domain.DeltaRecord;
 import com.sf.delta.domain.DeltaRun;
 import com.sf.delta.service.DefaultDeltaStore;
 import com.sf.delta.service.DeltaStore;
@@ -24,7 +23,5 @@ public class DeltaStoreShould {
         //Then
         MatcherAssert.assertThat(deltaRun.getDeltaRunName(), CoreMatchers.equalTo(deltaRunName));
     }
-
-
 
 }

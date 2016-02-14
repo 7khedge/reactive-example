@@ -1,4 +1,4 @@
-package com.sf.delta.domain;
+package com.sf.job.domain;
 
 /**
  * Created by adityasofat on 13/02/2016.

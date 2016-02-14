@@ -1,6 +1,7 @@
-package com.sf.delta.domain;
+package com.sf.job.domain;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -9,16 +10,16 @@ import java.util.Optional;
 public class JobExecution {
     private final Long jobExecutionId;
     private final Long jobId;
-    private final String json;
+    private final Map<String,String> propeties;
     private final LocalDateTime startDateTime;
     private final Optional<LocalDateTime> stopDateTime;
     private final JobExecutionStatus status;
     private final Optional<String> exitMessage;
 
-    public JobExecution(Long jobExecutionId, Long jobId, String json, LocalDateTime startDateTime) {
+    public JobExecution(Long jobExecutionId, Long jobId, Map<String, String> properties, LocalDateTime startDateTime) {
         this.jobExecutionId = jobExecutionId;
         this.jobId = jobId;
-        this.json = json;
+        this.propeties = properties;
         this.startDateTime = startDateTime;
         this.stopDateTime = Optional.empty();
         this.status = JobExecutionStatus.RUNNING;
