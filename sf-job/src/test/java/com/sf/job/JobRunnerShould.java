@@ -2,7 +2,6 @@ package com.sf.job;
 
 import com.sf.job.testjob.DefaultJobExecutionParameters;
 import com.sf.job.testjob.JsonRecord;
-import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 /**

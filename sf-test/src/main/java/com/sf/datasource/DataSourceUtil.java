@@ -12,8 +12,8 @@ public class DataSourceUtil {
 
     public static DataSource simpleDatSource() {
         MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/hazel");
-        dataSource.setUser("hazeluser");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/nnbatch");
+        dataSource.setUser("nnbatchuser");
         dataSource.setPassword("password");
         return dataSource;
     }

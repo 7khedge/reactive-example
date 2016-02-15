@@ -15,5 +15,4 @@ public enum DefaultJobExecutionParameters {
     deltaCreateCount,
     deltaUpdateCount,
     deltaDeleteCount;
-
 }

@@ -10,5 +10,5 @@ import java.util.Map;
  */
 public interface JobExecutionRepository {
 
-    JobExecution create(Long jobId, Map<String, String> properties, LocalDateTime startDateTime);
+    JobExecution create(Long jobId, Map<String, String> properties);
 }

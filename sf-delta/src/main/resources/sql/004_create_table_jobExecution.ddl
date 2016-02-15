@@ -1,9 +1,9 @@
 CREATE TABLE `jobExecution` (
   `jobExecutionId`  INT(11) AUTO_INCREMENT,
   `jobId`           INT(11) NOT NULL,
-  `propeties`       JSON NOT NULL,
+  `properties`      JSON NOT NULL,
   `startDateTime`   DATETIME NOT NULL,
-  `stopDateTime`    DATETIME NOT NULL,
+  `stopDateTime`    DATETIME,
   `status`          VARCHAR(32),
   `exitMessage`     VARCHAR(2048),
 PRIMARY KEY (`jobExecutionId`),
