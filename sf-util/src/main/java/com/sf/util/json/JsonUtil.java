@@ -2,9 +2,7 @@ package com.sf.util.json;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sf.util.file.FileUtil;
 import org.apache.commons.io.IOUtils;
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
