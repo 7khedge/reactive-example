@@ -43,6 +43,12 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
+        <!-- streaming -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>0.9.0.0</version>
+        </dependency>
         <!-- testing -->
         <dependency>
             <groupId>junit</groupId>
