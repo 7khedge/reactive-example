@@ -1,8 +1,6 @@
 package com.sf.channel;
 
-import com.sf.chronicle.queue.ChronicleQueue;
-import com.sf.chronicle.queue.Message;
-import com.sf.chronicle.queue.MessageListener;
+import com.sf.kafka.KafkaListener;
 import rx.Observable;
 import rx.Subscriber;
 import rx.observables.ConnectableObservable;
@@ -14,18 +12,16 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by adityasofat on 03/02/2016.
  */
-public class ChronicleQueueObserver<T> implements ListenChannel<T> {
+public class KafkaTopicObserver<T> implements ListenChannel<T> {
 
     private final Adaptor<T> adaptor;
-    private final ChronicleQueue<T> chronicleQueue;
-    private final int startIndex;
+    private final KafkaListener<String,T> kafkaListener;
     private ConnectableObservable<T> observer;
     private Subscriber<T> subscriber;
 
-    public ChronicleQueueObserver(ChronicleQueue<T> chronicleQueue, int startIndex, Adaptor<T> adaptor) {
+    public KafkaTopicObserver(KafkaListener<String,T> kafkaListener, Adaptor<T> adaptor) {
         this.adaptor = adaptor;
-        this.chronicleQueue = chronicleQueue;
-        this.startIndex = startIndex;
+        this.kafkaListener = kafkaListener;
     }
 
     @Override
@@ -35,12 +31,13 @@ public class ChronicleQueueObserver<T> implements ListenChannel<T> {
 
     @Override
     public String getName() {
-        return this.chronicleQueue.getQueueName();
+        return this.kafkaListener.getName();
     }
 
     @Override
     public void init() {
-        observer = createObserver(startIndex, chronicleQueue);
+        observer = createObserver(this.kafkaListener);
+        kafkaListener.init();
         subscriber = safeSubscriber(this);
         observer.subscribe(subscriber);
         observer.connect();
@@ -51,7 +48,7 @@ public class ChronicleQueueObserver<T> implements ListenChannel<T> {
         subscriber.unsubscribe();
     }
 
-    private Subscriber safeSubscriber(final ListenChannel<T> listenChannel) {
+    private Subscriber<T> safeSubscriber(final ListenChannel<T> listenChannel) {
         return new SafeSubscriber<T>(new Subscriber<T>() {
             @Override
             public void onCompleted() {
@@ -70,7 +67,7 @@ public class ChronicleQueueObserver<T> implements ListenChannel<T> {
         });
     }
 
-    private ConnectableObservable<T> createObserver(final int startIndex, final ChronicleQueue<T> chronicleQueue) {
+    private ConnectableObservable<T> createObserver(final KafkaListener<String,T> kafkaListener) {
         return Observable.create(
                 new Observable.OnSubscribe<T>() {
                     @Override
@@ -80,13 +77,12 @@ public class ChronicleQueueObserver<T> implements ListenChannel<T> {
                             if (sub.isUnsubscribed()) {
                                 return;
                             }
-                            long currentIndex = startIndex;
                             while (true) {
                                 System.out.println(Thread.currentThread().getName() + " In loop to receive messages");
-                                currentIndex = chronicleQueue.readMessages(message -> {
+                                kafkaListener.subscriber(message -> {
                                     System.out.println(Thread.currentThread().getName() + "Found  message [" + message + "]");
-                                    sub.onNext(message.getPayload());
-                                }, currentIndex);
+                                    sub.onNext(message);
+                                });
                                 if (sub.isUnsubscribed()) {
                                     sub.onCompleted();
                                     break;

@@ -22,20 +22,11 @@ public class ListenChronicleQueueObserverShould {
     @Test
     public void collectMessages() throws InterruptedException {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
-        final List<String> messageCollector = new ArrayList<String>();
-        Adaptor<String> stringAdaptor = new  Adaptor<String>() {
-            @Override
-            public void process(String  message) {
-                messageCollector.add(message);
-                System.out.println(Thread.currentThread().getName() + "Adaptor Received message [" + message + "]");
-                if ( messageCollector.size() == MessageUtil.getMessages().size()){
-                    countDownLatch.countDown();
-                }
-            }
-        };
+        final List<String> messageCollector = new ArrayList<>();
+        Adaptor<String> stringAdaptor = Adaptors.stringAdaptor(messageCollector, countDownLatch);
         String channelName = "observedChannel";
         ChronicleQueue<String> stringChronicleQueue = ChronicleQueues.<String>newObservableQueue(channelName, PersistenceSpaces.persistenceSpace(DEFAULT));
-        ChronicleQueueObserver<String> stringChronicleQueueObserver = new ChronicleQueueObserver<String>(stringChronicleQueue, -1, stringAdaptor);
+        ChronicleQueueObserver<String> stringChronicleQueueObserver = new ChronicleQueueObserver<>(stringChronicleQueue, -1, stringAdaptor);
         stringChronicleQueueObserver.init();
         stringChronicleQueue.publishMessages(MessageUtil.getMessages(),128);
         countDownLatch.await();

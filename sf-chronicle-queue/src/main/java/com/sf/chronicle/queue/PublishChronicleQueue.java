@@ -33,9 +33,7 @@ public class PublishChronicleQueue {
     }
 
     public <T> void publishMessages(List<Message<T>> messages, int messageSize) {
-        for(Message<T> message : messages) {
-            publishMessage(message, messageSize);
-        }
+        messages.forEach(message -> publishMessage(message, messageSize));
     }
 
     public <T> void publishMessage(Message<T> message, int messageSize) {

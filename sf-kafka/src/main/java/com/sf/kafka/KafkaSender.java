@@ -1,10 +1,8 @@
-package com.sf.util.kafka;
+package com.sf.kafka;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-
-import static com.sf.util.kafka.KafkaProperties.sender;
 
 /**
  * Created by adityasofat on 15/02/2016.
@@ -12,13 +10,15 @@ import static com.sf.util.kafka.KafkaProperties.sender;
 public class KafkaSender<K,V> {
 
     private final Producer<K,V> producer;
+    private final String topicName;
 
-    public KafkaSender() {
-        this.producer = new KafkaProducer<K,V>(sender());
+    public KafkaSender(String topicName) {
+        this.topicName = topicName;
+        this.producer = new KafkaProducer<>(KafkaProperties.sender());
     }
 
-    public void sendMessage(String topicName, V message){
-        producer.send(new ProducerRecord<K, V>(topicName, message));
+    public void sendMessage(V message){
+        producer.send(new ProducerRecord<>(topicName, message));
     }
 
     public void close() {

@@ -16,6 +16,7 @@
         <module>sf-jobs</module>
         <module>sf-test</module>
         <module>sf-delta</module>
+        <module>sf-kafka</module>
     </modules>
 
     <properties>
