@@ -2,6 +2,7 @@ package com.sf.job.testjob;
 
 import com.sf.job.ItemWriter;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,9 +10,16 @@ import java.util.Map;
  */
 public class JsonRecordItemWriter implements ItemWriter<JsonRecord> {
 
+    private final List<String> stringCollector;
+
+    public JsonRecordItemWriter(List<String> stringCollector) {
+
+        this.stringCollector = stringCollector;
+    }
+
     @Override
     public void write(JsonRecord item) {
-        System.out.println(item.getPayload());
+        this.stringCollector.add(item.toString());
     }
 
 }
