@@ -1,5 +1,6 @@
 package com.sf.kafka;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -8,6 +9,7 @@ import org.junit.Test;
 public class KafkaListenerShould {
 
     @Test
+    @Ignore("Need to understand offset and message expiry")
     public void listenToTopic() {
         KafkaListener<String, String> kafkaListener = new KafkaListener<>("test");
         kafkaListener.subscriber(String::toString);

@@ -1,5 +1,6 @@
 package com.sf.kafka;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -8,6 +9,7 @@ import org.junit.Test;
 public class KafkaSenderShould {
 
     @Test
+    @Ignore("Need to understand offset and message expiry")
     public void publishAMessage(){
         String topicName = "test";
         KafkaSender<String,String> kafkaSender = new KafkaSender<>(topicName);
