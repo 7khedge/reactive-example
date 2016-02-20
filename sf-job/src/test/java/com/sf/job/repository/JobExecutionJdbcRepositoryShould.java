@@ -2,6 +2,8 @@ package com.sf.job.repository;
 
 import com.sf.job.domain.Job;
 import com.sf.job.domain.JobExecution;
+import com.sf.job.repository.jdbc.JobExecutionJdbcRepository;
+import com.sf.job.repository.jdbc.JobJdbcRepository;
 import com.sf.job.testjob.DefaultJobExecutionParameters;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;

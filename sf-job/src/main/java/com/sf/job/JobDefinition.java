@@ -3,18 +3,19 @@ package com.sf.job;
 import rx.observables.ConnectableObservable;
 
 import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * Created by adityasofat on 11/11/2015.
  */
-public class JobDefinition<F,T,E extends Enum<E>> {
+public class JobDefinition<F,T> {
     private final String jobName;
     private final IdKey idKey;
     private final ConnectableObservable<F> items;
     private final ItemReader<F,T> itemReader;
     private final ItemProcessor<T> itemProcessor;
     private final ItemWriter<T> itemWriter;
-    private final EnumMap<E,Integer> jobExecutionParameters;
+    private final Map<String,Object> jobExecutionParameters;
 
     public JobDefinition(String jobName,
                          IdKey idKey,
@@ -22,7 +23,7 @@ public class JobDefinition<F,T,E extends Enum<E>> {
                          ItemReader<F,T> itemReader,
                          ItemProcessor<T> itemProcessor,
                          ItemWriter<T> itemWriter,
-                         EnumMap<E,Integer> jobExecutionParameters) {
+                         Map<String,Object> jobExecutionParameters) {
         this.jobName = jobName;
         this.idKey = idKey;
         this.items = items;
@@ -56,7 +57,7 @@ public class JobDefinition<F,T,E extends Enum<E>> {
         return itemWriter;
     }
 
-    public EnumMap<E,Integer> getJobExecutionParameters() {
+    public Map<String,Object> getJobExecutionParameters() {
         return jobExecutionParameters;
     }
 }

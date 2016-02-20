@@ -11,18 +11,19 @@ import java.util.List;
 public class JobFactory {
 
 
-    public static JobDefinition<String,JsonRecord,DefaultJobExecutionParameters> getTestJob(String jobName,
-                                                                                            IdKey idKey,
-                                                                                            String fileName,
-                                                                                            List<JsonRecord> jsonRecordCollector,
-                                                                                            List<String> stringCollector){
-        return JobDefinitionBuilder.<String,JsonRecord,DefaultJobExecutionParameters>jobDefinition()
+    public static JobDefinition<String, JsonRecord> getTestJob(String jobName,
+                                                               IdKey idKey,
+                                                               String fileName,
+                                                               List<JsonRecord> jsonRecordCollector,
+                                                               List<String> stringCollector) {
+        return JobDefinitionBuilder.<String, JsonRecord>jobDefinition()
                 .name(jobName)
                 .idKey(idKey)
-                .connectableObservable(new FileObserver().createObserver(FileUtil.getClassPathInputStream(fileName)))
+                .ObservableItems(new FileObserver().createObserver(FileUtil.getClassPathInputStream(fileName)))
                 .itemReader(new JsonRecordItemReader(idKey))
                 .itemProcessor(new JsonRecordItemProcessor(jsonRecordCollector))
                 .itemWriter(new JsonRecordItemWriter(stringCollector))
+                .jobExecutionParameters(DefaultJobExecutionParameters.class)
                 .build();
     }
 }

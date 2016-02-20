@@ -1,6 +1,5 @@
 package com.sf.job;
 
-import com.sf.job.testjob.DefaultJobExecutionParameters;
 import com.sf.job.testjob.JsonRecord;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -19,12 +18,12 @@ public class JobRunnerShould {
         //Given
         List<JsonRecord> jsonRecordCollector = new ArrayList<>();
         List<String> stringListCollector = new ArrayList<>();
-        JobDefinition<String,JsonRecord,DefaultJobExecutionParameters> jobDefinition = JobFactory.getTestJob("ApplicationInstance",
+        JobDefinition<String,JsonRecord> jobDefinition = JobFactory.getTestJob("ApplicationInstance",
                 new IdKey("id"),
                 "2_ApplicationInstance.json",
                 jsonRecordCollector,
                 stringListCollector);
-        JobRunner<String,JsonRecord,DefaultJobExecutionParameters> jobRunner = new JobRunner<>(jobDefinition);
+        JobRunner<String,JsonRecord> jobRunner = new JobRunner<>(jobDefinition);
         //When
         jobRunner.startJob();
         //Then

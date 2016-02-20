@@ -1,7 +1,8 @@
-package com.sf.job.repository;
+package com.sf.job.repository.jdbc;
 
 
 import com.sf.job.domain.Job;
+import com.sf.job.repository.JobRepository;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;

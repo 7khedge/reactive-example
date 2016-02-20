@@ -2,6 +2,7 @@ JobDefinition
     :jobDefinitionId
     :jobName
     :IdKey
+    :itemObservable [Observable of items to be processed]
     :itemReader     [create message for each record]
     :itemProcessor  [generate checksum | compare checksum | change event ]
     :itemWriter     [change event -> source]

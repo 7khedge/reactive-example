@@ -21,7 +21,7 @@ public class JobDefinitionBuilderShould {
         List<String> stringListCollector = new ArrayList<>();
         //When
         IdKey idKey = new IdKey("id");
-        JobDefinition<String,JsonRecord,DefaultJobExecutionParameters> jobDefinition = JobFactory.getTestJob(
+        JobDefinition<String,JsonRecord> jobDefinition = JobFactory.getTestJob(
                 jobName,
                 idKey,
                 "2_ApplicationInstance.json",

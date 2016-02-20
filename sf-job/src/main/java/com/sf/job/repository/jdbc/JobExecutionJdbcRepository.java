@@ -1,9 +1,10 @@
-package com.sf.job.repository;
+package com.sf.job.repository.jdbc;
 
 import com.google.gson.Gson;
 
 import com.google.gson.reflect.TypeToken;
 import com.sf.job.domain.JobExecution;
+import com.sf.job.repository.JobExecutionRepository;
 import com.sf.util.date.DateUtil;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
@@ -16,7 +17,7 @@ import java.util.Map;
 /**
  * Created by adityasofat on 14/02/2016.
  */
-public class JobExecutionJdbcRepository implements  JobExecutionRepository {
+public class JobExecutionJdbcRepository implements JobExecutionRepository {
 
     private SimpleJdbcInsert insertJob;
     private Type stringStringMap = new TypeToken<Map<String,String>>(){}.getType();
