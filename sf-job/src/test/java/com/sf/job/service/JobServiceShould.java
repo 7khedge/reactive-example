@@ -1,6 +1,7 @@
 package com.sf.job.service;
 
 import com.sf.datasource.DataSourceUtil;
+import com.sf.datasource.TruncateUtil;
 import com.sf.job.JobDefinition;
 import com.sf.job.JobDefinitionBuilder;
 import com.sf.job.domain.Job;
@@ -8,12 +9,20 @@ import com.sf.job.domain.JsonRecord;
 import com.sf.job.repository.jdbc.JobJdbcRepository;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Created by adityasofat on 20/02/2016.
  */
 public class JobServiceShould {
+
+    @Before
+    public void clearDownTables(){
+        TruncateUtil truncateUtil = new TruncateUtil(DataSourceUtil.simpleDatSource());
+        truncateUtil.truncateAllTables("jobExecution","job");
+    }
+
 
     @Test
     public void addAJob(){

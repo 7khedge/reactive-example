@@ -1,5 +1,7 @@
 package com.sf.job.domain;
 
+import java.util.Objects;
+
 /**
  * Created by adityasofat on 13/02/2016.
  */
@@ -24,5 +26,29 @@ public class Job {
 
     public IdKey getDataKey() {
         return dataKey;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Job job = (Job) o;
+        return Objects.equals(jobId, job.jobId) &&
+                Objects.equals(jobName, job.jobName) &&
+                Objects.equals(dataKey, job.dataKey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(jobId, jobName, dataKey);
+    }
+
+    @Override
+    public String toString() {
+        return "Job{" +
+                "jobId=" + jobId +
+                ", jobName=" + jobName +
+                ", dataKey=" + dataKey +
+                '}';
     }
 }

@@ -49,7 +49,7 @@ public class JobJdbcRepository implements JobRepository {
     public Job read(JobName jobName) {
         SQL sql = new SQL().SELECT("*").FROM(tableName).WHERE(jobNameColumn + "='" + jobName + "'");
         return jdbcTemplate.queryForObject(sql.toString(), (rs, rowNum) -> {
-            return new Job(rs.getLong(jobIdColumn),new JobName(rs.getString(jobNameColumn)), new IdKey(rs.getString(jobIdColumn)));
+            return new Job(rs.getLong(jobIdColumn),new JobName(rs.getString(jobNameColumn)), new IdKey(rs.getString(dataKeyColumn)));
         });
     }
 
