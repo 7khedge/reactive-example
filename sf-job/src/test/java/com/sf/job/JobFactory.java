@@ -19,7 +19,7 @@ public class JobFactory {
         return JobDefinitionBuilder.<String, JsonRecord>jobDefinition()
                 .name(jobName)
                 .idKey(idKey)
-                .ObservableItems(new FileObserver().createObserver(FileUtil.getClassPathInputStream(fileName)))
+                .observableItems(new FileObserver().createObserver(FileUtil.getClassPathInputStream(fileName)))
                 .itemReader(new JsonRecordItemReader(idKey))
                 .itemProcessor(new JsonRecordItemProcessor(jsonRecordCollector))
                 .itemWriter(new JsonRecordItemWriter(stringCollector))

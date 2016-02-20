@@ -61,7 +61,12 @@ public class JobDefinitionBuilder<F,T> {
         return this;
     }
 
-    public JobDefinitionBuilder<F,T> ObservableItems(ConnectableObservable<F> observableItems) {
+    public JobDefinitionBuilder<F,T> jobExecutionParameters(Map<String,Integer> parameterMap) {
+        jobExecutionParameters.putAll(parameterMap);
+        return this;
+    }
+
+    public JobDefinitionBuilder<F,T> observableItems(ConnectableObservable<F> observableItems) {
         this.observableItems = observableItems;
         return this;
     }
