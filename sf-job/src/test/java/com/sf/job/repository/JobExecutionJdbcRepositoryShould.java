@@ -1,7 +1,9 @@
 package com.sf.job.repository;
 
+import com.sf.job.domain.IdKey;
 import com.sf.job.domain.Job;
 import com.sf.job.domain.JobExecution;
+import com.sf.job.domain.JobName;
 import com.sf.job.repository.jdbc.JobExecutionJdbcRepository;
 import com.sf.job.repository.jdbc.JobJdbcRepository;
 import com.sf.job.testjob.DefaultJobExecutionParameters;
@@ -27,8 +29,8 @@ public class JobExecutionJdbcRepositoryShould {
     }
 
     private Job createJob() {
-        String jobName = "ApplicationInstance";
-        String dataKey = "id";
+        JobName jobName = new JobName("ApplicationInstance");
+        IdKey dataKey = new IdKey("id");
         JobJdbcRepository jobJdbcRepository = new JobJdbcRepository(simpleDatSource());
         jobJdbcRepository.init();
         return jobJdbcRepository.create(jobName, dataKey);

@@ -1,5 +1,8 @@
 package com.sf.job;
 
+import com.sf.job.domain.IdKey;
+import com.sf.job.domain.JobName;
+import com.sf.job.domain.JsonRecord;
 import com.sf.job.testjob.*;
 import com.sf.util.file.FileUtil;
 
@@ -11,7 +14,7 @@ import java.util.List;
 public class JobFactory {
 
 
-    public static JobDefinition<String, JsonRecord> getTestJob(String jobName,
+    public static JobDefinition<String, JsonRecord> getTestJob(JobName jobName,
                                                                IdKey idKey,
                                                                String fileName,
                                                                List<JsonRecord> jsonRecordCollector,

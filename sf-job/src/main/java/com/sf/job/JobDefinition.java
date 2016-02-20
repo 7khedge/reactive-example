@@ -1,15 +1,16 @@
 package com.sf.job;
 
+import com.sf.job.domain.IdKey;
+import com.sf.job.domain.JobName;
 import rx.observables.ConnectableObservable;
 
-import java.util.EnumMap;
 import java.util.Map;
 
 /**
  * Created by adityasofat on 11/11/2015.
  */
 public class JobDefinition<F,T> {
-    private final String jobName;
+    private final JobName jobName;
     private final IdKey idKey;
     private final ConnectableObservable<F> items;
     private final ItemReader<F,T> itemReader;
@@ -17,7 +18,7 @@ public class JobDefinition<F,T> {
     private final ItemWriter<T> itemWriter;
     private final Map<String,Object> jobExecutionParameters;
 
-    public JobDefinition(String jobName,
+    public JobDefinition(JobName jobName,
                          IdKey idKey,
                          ConnectableObservable<F> items,
                          ItemReader<F,T> itemReader,
@@ -33,7 +34,7 @@ public class JobDefinition<F,T> {
         this.jobExecutionParameters = jobExecutionParameters;
     }
 
-    public String getJobName() {
+    public JobName getJobName() {
         return jobName;
     }
 

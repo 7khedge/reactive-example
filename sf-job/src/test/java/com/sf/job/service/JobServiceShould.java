@@ -1,18 +1,30 @@
 package com.sf.job.service;
 
+import com.sf.datasource.DataSourceUtil;
 import com.sf.job.JobDefinition;
 import com.sf.job.JobDefinitionBuilder;
-import com.sf.job.testjob.JsonRecord;
+import com.sf.job.domain.Job;
+import com.sf.job.domain.JsonRecord;
+import com.sf.job.repository.jdbc.JobJdbcRepository;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 /**
  * Created by adityasofat on 20/02/2016.
  */
-public class JobsShould {
+public class JobServiceShould {
 
     @Test
     public void addAJob(){
-        getTestJob(new TestJobConfig());
+        //Given
+        JobService jobService = new DefaultJobService(new JobJdbcRepository(DataSourceUtil.simpleDatSource()));
+        JobDefinition<String, JsonRecord> testJob = getTestJob(new TestJobConfig());
+        //When
+        Job createdJob = jobService.addJob(testJob);
+        //Then
+        Job retrievedJob = jobService.getJob(testJob.getJobName());
+        MatcherAssert.assertThat(createdJob,CoreMatchers.equalTo(retrievedJob));
     }
 
     private JobDefinition<String,JsonRecord> getTestJob(JobConfig<String,JsonRecord> jobConfig) {

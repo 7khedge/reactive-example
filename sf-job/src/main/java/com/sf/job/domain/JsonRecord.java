@@ -1,4 +1,4 @@
-package com.sf.job.testjob;
+package com.sf.job.domain;
 
 /**
  * Created by adityasofat on 08/02/2016.

@@ -1,6 +1,9 @@
 package com.sf.job.service;
 
 import com.sf.job.*;
+import com.sf.job.domain.IdKey;
+import com.sf.job.domain.JobName;
+import com.sf.job.domain.JsonRecord;
 import com.sf.job.testjob.*;
 import com.sf.util.file.FileUtil;
 import rx.observables.ConnectableObservable;
@@ -32,8 +35,8 @@ public class TestJobConfig implements JobConfig<String,JsonRecord> {
     }
 
     @Override
-    public String getName() {
-        return "ApplicationInstance";
+    public JobName getName() {
+        return new JobName("ApplicationInstance");
     }
 
     @Override

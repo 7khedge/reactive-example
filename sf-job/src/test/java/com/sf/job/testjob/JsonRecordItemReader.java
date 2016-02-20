@@ -1,13 +1,10 @@
 package com.sf.job.testjob;
 
 
-import com.sf.job.IdKey;
+import com.sf.job.domain.IdKey;
 import com.sf.job.ItemReader;
-import com.sf.job.JobDefinition;
+import com.sf.job.domain.JsonRecord;
 import com.sf.util.json.JsonUtil;
-
-import java.util.Map;
-import java.util.Optional;
 
 public class JsonRecordItemReader implements ItemReader<String,JsonRecord> {
 

@@ -5,10 +5,10 @@ package com.sf.job.domain;
  */
 public class Job {
     private final Long jobId;
-    private final String jobName;
-    private final String dataKey;
+    private final JobName jobName;
+    private final IdKey dataKey;
 
-    public Job(Long jobId, String jobName, String dataKey) {
+    public Job(Long jobId, JobName jobName, IdKey dataKey) {
         this.jobId = jobId;
         this.jobName = jobName;
         this.dataKey = dataKey;
@@ -18,11 +18,11 @@ public class Job {
         return jobId;
     }
 
-    public String getJobName() {
+    public JobName getJobName() {
         return jobName;
     }
 
-    public String getDataKey() {
+    public IdKey getDataKey() {
         return dataKey;
     }
 }

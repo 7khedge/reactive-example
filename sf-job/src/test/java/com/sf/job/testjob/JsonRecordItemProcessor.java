@@ -1,6 +1,7 @@
 package com.sf.job.testjob;
 
 import com.sf.job.ItemProcessor;
+import com.sf.job.domain.JsonRecord;
 
 import java.util.List;
 

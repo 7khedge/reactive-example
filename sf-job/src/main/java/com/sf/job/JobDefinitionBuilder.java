@@ -1,5 +1,7 @@
 package com.sf.job;
 
+import com.sf.job.domain.IdKey;
+import com.sf.job.domain.JobName;
 import rx.observables.ConnectableObservable;
 
 import java.util.Map;
@@ -10,7 +12,7 @@ import java.util.TreeMap;
  */
 public class JobDefinitionBuilder<F,T> {
 
-    private String jobName;
+    private JobName jobName;
     private IdKey idKey;
     private ConnectableObservable<F> observableItems;
     private ItemReader<F,T> itemReader;
@@ -25,7 +27,7 @@ public class JobDefinitionBuilder<F,T> {
         return new JobDefinitionBuilder<>();
     }
 
-    public JobDefinitionBuilder<F,T> name(String jobName) {
+    public JobDefinitionBuilder<F,T> name(JobName jobName) {
         this.jobName = jobName;
         return this;
     }
