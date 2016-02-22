@@ -30,4 +30,5 @@ public class FileUtilShould {
     public void throwsAnExceptionWhenFileNameNull() {
         FileUtil.getClassPathInputStream(null);
     }
+
 }

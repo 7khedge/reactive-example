@@ -20,7 +20,7 @@ public class JobRunnerShould {
         //Given
         List<JsonRecord> jsonRecordCollector = new ArrayList<>();
         List<String> stringListCollector = new ArrayList<>();
-        JobDefinition<String,JsonRecord> jobDefinition = JobFactory.getTestJob(new JobName("ApplicationInstance"),
+        JobDefinition<String,JsonRecord> jobDefinition = JobFactory.getTestJob(JobName.SNS_ApplicationInstance,
                 new IdKey("id"),
                 "2_ApplicationInstance.json",
                 jsonRecordCollector,

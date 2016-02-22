@@ -4,13 +4,13 @@ import com.google.common.base.Preconditions;
 
 import java.io.InputStream;
 
+import static com.sf.util.file.SFClassUtils.getClassLoader;
+
 /**
  * Created by adityasofat on 22/01/2016.
  */
 public class FileUtil {
-    private static ClassLoader getClassLoader() {
-        return Thread.currentThread().getContextClassLoader();
-    }
+
 
     public static InputStream getClassPathInputStream(String relativeClassPath) {
         Preconditions.checkArgument(relativeClassPath != null && !relativeClassPath.isEmpty(),"enter valid relativeClassPath Error: empty");

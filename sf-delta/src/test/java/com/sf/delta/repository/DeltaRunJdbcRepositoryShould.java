@@ -6,7 +6,7 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
-import static com.sf.datasource.DataSourceUtil.simpleDatSource;
+import static com.sf.util.datasource.DataSourceUtil.simpleDatSource;
 
 /**
  * Created by adityasofat on 12/02/2016.

@@ -11,7 +11,7 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
-import static com.sf.datasource.DataSourceUtil.simpleDatSource;
+import static com.sf.util.datasource.DataSourceUtil.simpleDatSource;
 import static com.sf.job.domain.JobExecutionParametersUtil.jobExecutionParametersMap;
 
 /**
@@ -29,11 +29,10 @@ public class JobExecutionJdbcRepositoryShould {
     }
 
     private Job createJob() {
-        JobName jobName = new JobName("ApplicationInstance");
         IdKey dataKey = new IdKey("id");
         JobJdbcRepository jobJdbcRepository = new JobJdbcRepository(simpleDatSource());
         jobJdbcRepository.init();
-        return jobJdbcRepository.create(jobName, dataKey);
+        return jobJdbcRepository.create(JobName.SNS_ApplicationInstance, dataKey);
     }
 
 

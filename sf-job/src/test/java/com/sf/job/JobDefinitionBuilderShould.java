@@ -18,19 +18,18 @@ public class JobDefinitionBuilderShould {
     @Test
     public void withReader(){
         //Given
-        JobName jobName = new JobName("ApplicationInstance");
         List<JsonRecord> jsonRecordCollector = new ArrayList<>();
         List<String> stringListCollector = new ArrayList<>();
         //When
         IdKey idKey = new IdKey("id");
         JobDefinition<String,JsonRecord> jobDefinition = JobFactory.getTestJob(
-                jobName,
+                JobName.SNS_ApplicationInstance,
                 idKey,
                 "2_ApplicationInstance.json",
                 jsonRecordCollector,
                 stringListCollector);
         //Then
-        MatcherAssert.assertThat(jobDefinition.getJobName(), CoreMatchers.equalTo(jobName));
+        MatcherAssert.assertThat(jobDefinition.getJobName(), CoreMatchers.equalTo(JobName.SNS_ApplicationInstance));
     }
 
 }

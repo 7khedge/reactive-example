@@ -22,6 +22,7 @@ public class JobJdbcRepository implements JobRepository {
     private JdbcTemplate jdbcTemplate;
     private final static String tableName = "job";
     private final static String jobIdColumn = "jobId";
+    private final static String jobGroupColumn = "jobGroup";
     private final static String jobNameColumn = "jobName";
     private final static String dataKeyColumn = "dataKey";
 
@@ -39,17 +40,18 @@ public class JobJdbcRepository implements JobRepository {
     @Override
     public Job create(JobName jobName, IdKey dataKey) {
         Map<String, Object> parameters = new HashMap<>(2);
-        parameters.put(jobNameColumn, jobName);
-        parameters.put(dataKeyColumn, dataKey);
+        parameters.put(jobNameColumn, jobName.getName());
+        parameters.put(jobGroupColumn, jobName.getGroup());
+        parameters.put(dataKeyColumn, dataKey.value());
         Number newId = insertJob.executeAndReturnKey(parameters);
         return new Job(newId.longValue(), jobName, dataKey);
     }
 
     @Override
     public Job read(JobName jobName) {
-        SQL sql = new SQL().SELECT("*").FROM(tableName).WHERE(jobNameColumn + "='" + jobName + "'");
+        SQL sql = new SQL().SELECT("*").FROM(tableName).WHERE(jobNameColumn + "='" + jobName.name() + "'");
         return jdbcTemplate.queryForObject(sql.toString(), (rs, rowNum) -> {
-            return new Job(rs.getLong(jobIdColumn),new JobName(rs.getString(jobNameColumn)), new IdKey(rs.getString(dataKeyColumn)));
+            return new Job(rs.getLong(jobIdColumn),JobName.valueOf(rs.getString(jobNameColumn)), new IdKey(rs.getString(dataKeyColumn)));
         });
     }
 

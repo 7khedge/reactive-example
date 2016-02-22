@@ -36,7 +36,7 @@ public class TestJobConfig implements JobConfig<String,JsonRecord> {
 
     @Override
     public JobName getName() {
-        return new JobName("ApplicationInstance");
+        return JobName.SNS_ApplicationInstance;
     }
 
     @Override
