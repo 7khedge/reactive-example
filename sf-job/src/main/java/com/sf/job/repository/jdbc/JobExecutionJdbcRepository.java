@@ -22,11 +22,20 @@ public class JobExecutionJdbcRepository implements JobExecutionRepository {
     private SimpleJdbcInsert insertJob;
     private Type stringIntegerMap = new TypeToken<Map<String,Integer>>(){}.getType();
     private Gson gson = new Gson();
-
+    public final static String tableName = "jobExecution";
+    private enum dbColumns {
+        jobExecutionId,
+        jobId,
+        properties,
+        startDateTime,
+        stopDateTime,
+        status,
+        exitMessage;
+    }
 
     public JobExecutionJdbcRepository(DataSource dataSource) {
         this.insertJob = new SimpleJdbcInsert(dataSource)
-                .withTableName("jobExecution")
+                .withTableName(tableName)
                 .usingGeneratedKeyColumns("jobExecutionId");
     }
 

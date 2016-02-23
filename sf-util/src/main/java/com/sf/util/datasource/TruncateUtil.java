@@ -33,10 +33,14 @@ public class TruncateUtil {
     }
 
     public void truncateAllTables() {
-        this.tableList.forEach(this::truncateATable);
+        this.tableList.forEach(this::truncateTable);
     }
 
-    public void truncateATable(String table) {
+    public void truncateTables(String ... tables) {
+        Arrays.asList(tables).forEach(this::truncateTable);
+    }
+
+    public void truncateTable(String table) {
         this.jdbcTemplate.execute(new SQL().DELETE_FROM(table).toString());
     }
 

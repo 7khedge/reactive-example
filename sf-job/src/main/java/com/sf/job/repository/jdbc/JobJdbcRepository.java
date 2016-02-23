@@ -20,16 +20,18 @@ public class JobJdbcRepository implements JobRepository {
 
     private SimpleJdbcInsert insertJob;
     private JdbcTemplate jdbcTemplate;
-    private final static String tableName = "job";
-    private final static String jobIdColumn = "jobId";
-    private final static String jobGroupColumn = "jobGroup";
-    private final static String jobNameColumn = "jobName";
-    private final static String dataKeyColumn = "dataKey";
+    public final static String tableName = "job";
+    private enum dbColumns {
+        jobId,
+        jobGroup,
+        jobName,
+        dataKey;
+    }
 
     public JobJdbcRepository(DataSource dataSource) {
         this.insertJob = new SimpleJdbcInsert(dataSource)
                 .withTableName(tableName)
-                .usingGeneratedKeyColumns(jobIdColumn);
+                .usingGeneratedKeyColumns(dbColumns.jobId.name());
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -40,9 +42,9 @@ public class JobJdbcRepository implements JobRepository {
     @Override
     public Job create(JobName jobName, IdKey dataKey) {
         Map<String, Object> parameters = new HashMap<>(2);
-        parameters.put(jobNameColumn, jobName.getName());
-        parameters.put(jobGroupColumn, jobName.getGroup());
-        parameters.put(dataKeyColumn, dataKey.value());
+        parameters.put(dbColumns.jobName.name(), jobName.getName());
+        parameters.put(dbColumns.jobGroup.name(), jobName.getGroup());
+        parameters.put(dbColumns.dataKey.name(), dataKey.value());
         Number newId = insertJob.executeAndReturnKey(parameters);
         return new Job(newId.longValue(), jobName, dataKey);
     }
@@ -50,11 +52,13 @@ public class JobJdbcRepository implements JobRepository {
     @Override
     public Job read(JobName jobName) {
         SQL sql = new SQL().SELECT("*").FROM(tableName)
-                .WHERE(jobGroupColumn + "='" + jobName.getGroup() + "'")
+                .WHERE(dbColumns.jobGroup.name() + "='" + jobName.getGroup() + "'")
                 .AND()
-                .WHERE(jobNameColumn + "='" + jobName.getName() + "'");
+                .WHERE(dbColumns.jobName.name() + "='" + jobName.getName() + "'");
         return jdbcTemplate.queryForObject(sql.toString(), (rs, rowNum) -> {
-            return new Job(rs.getLong(jobIdColumn),JobName.valueOf(rs.getString(jobGroupColumn) + "_" + rs.getString(jobNameColumn)), new IdKey(rs.getString(dataKeyColumn)));
+            return new Job(rs.getLong(dbColumns.jobId.name()),
+                    JobName.valueOf(rs.getString(dbColumns.jobGroup.name()) + "_" + rs.getString(dbColumns.jobName.name())),
+                    new IdKey(rs.getString(dbColumns.dataKey.name())));
         });
     }
 
