@@ -16,7 +16,7 @@ public class JobDefinition<F,T> {
     private final ItemReader<F,T> itemReader;
     private final ItemProcessor<T> itemProcessor;
     private final ItemWriter<T> itemWriter;
-    private final Map<String,Object> jobExecutionParameters;
+    private final Map<String,Integer> jobExecutionParameters;
 
     public JobDefinition(JobName jobName,
                          IdKey idKey,
@@ -24,7 +24,7 @@ public class JobDefinition<F,T> {
                          ItemReader<F,T> itemReader,
                          ItemProcessor<T> itemProcessor,
                          ItemWriter<T> itemWriter,
-                         Map<String,Object> jobExecutionParameters) {
+                         Map<String,Integer> jobExecutionParameters) {
         this.jobName = jobName;
         this.idKey = idKey;
         this.items = items;
@@ -58,7 +58,7 @@ public class JobDefinition<F,T> {
         return itemWriter;
     }
 
-    public Map<String,Object> getJobExecutionParameters() {
+    public Map<String,Integer> getJobExecutionParameters() {
         return jobExecutionParameters;
     }
 }

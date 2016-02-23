@@ -1,19 +1,18 @@
 package com.sf.job.service;
 
+import com.sf.job.domain.*;
 import com.sf.util.datasource.DataSourceUtil;
 import com.sf.util.datasource.TruncateUtil;
 import com.sf.job.JobDefinition;
 import com.sf.job.JobDefinitionBuilder;
-import com.sf.job.domain.Job;
-import com.sf.job.domain.JobExecution;
-import com.sf.job.domain.JobName;
-import com.sf.job.domain.JsonRecord;
 import com.sf.job.repository.jdbc.JobExecutionJdbcRepository;
 import com.sf.job.repository.jdbc.JobJdbcRepository;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static com.sf.job.domain.JobName.SNS_ApplicationInstance;
 
 /**
  * Created by adityasofat on 20/02/2016.
@@ -28,7 +27,7 @@ public class JobServiceShould {
     @Before
     public void clearDownTables(){
         TruncateUtil truncateUtil = new TruncateUtil(DataSourceUtil.simpleDatSource());
-        truncateUtil.truncateAllTables("jobExecution","job");
+        truncateUtil.truncateAllTables();
     }
 
     @Test
@@ -41,15 +40,14 @@ public class JobServiceShould {
         MatcherAssert.assertThat(createdJob,CoreMatchers.equalTo(retrievedJob));
     }
 
-
     @Test
     public void startJob(){
         //Given
         jobService.addJob(testJob);
         //When
-        JobExecution jobExecution = jobService.startJob(JobName.SNS_ApplicationInstance);
+        JobExecution jobExecution = jobService.startJob(SNS_ApplicationInstance,testJob.getJobExecutionParameters());
         //Then
-        MatcherAssert.assertThat(jobExecution,CoreMatchers.notNullValue());
+        MatcherAssert.assertThat(jobExecution.getStatus(),CoreMatchers.equalTo(JobExecutionStatus.RUNNING));
     }
 
     private JobDefinition<String,JsonRecord> getTestJob(JobConfig<String,JsonRecord> jobConfig) {

@@ -7,6 +7,8 @@ import com.sf.job.domain.JobName;
 import com.sf.job.repository.JobExecutionRepository;
 import com.sf.job.repository.JobRepository;
 
+import java.util.Map;
+
 /**
  * Created by adityasofat on 20/02/2016.
  */
@@ -31,10 +33,9 @@ public class DefaultJobService implements JobService {
     }
 
     @Override
-    public JobExecution startJob(JobName jobName) {
+    public JobExecution startJob(JobName jobName,Map<String,Integer> properties) {
         Job job  = jobRepository.read(jobName);
-        return null;
+        return this.jobExecutionRepository.create(job.getJobId(), properties);
     }
-
 
 }

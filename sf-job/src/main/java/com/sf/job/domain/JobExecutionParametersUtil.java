@@ -9,9 +9,9 @@ import java.util.Map;
  */
 public class JobExecutionParametersUtil {
 
-    public static Map<String,String> jobExecutionParametersMap(Enum[] enumOfProperties){
-        final Map<String,String>  stringStringMap = new HashMap<>();
-        Arrays.asList(enumOfProperties).forEach(key -> stringStringMap.put(key.toString(),""));
-        return stringStringMap;
+    public static Map<String,Integer> jobExecutionParametersMap(Enum[] enumOfProperties){
+        final Map<String,Integer>  stringIntegerMap = new HashMap<>();
+        Arrays.asList(enumOfProperties).forEach(key -> stringIntegerMap.put(key.toString(),0));
+        return stringIntegerMap;
     }
 }

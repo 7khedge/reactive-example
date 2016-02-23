@@ -49,9 +49,12 @@ public class JobJdbcRepository implements JobRepository {
 
     @Override
     public Job read(JobName jobName) {
-        SQL sql = new SQL().SELECT("*").FROM(tableName).WHERE(jobNameColumn + "='" + jobName.name() + "'");
+        SQL sql = new SQL().SELECT("*").FROM(tableName)
+                .WHERE(jobGroupColumn + "='" + jobName.getGroup() + "'")
+                .AND()
+                .WHERE(jobNameColumn + "='" + jobName.getName() + "'");
         return jdbcTemplate.queryForObject(sql.toString(), (rs, rowNum) -> {
-            return new Job(rs.getLong(jobIdColumn),JobName.valueOf(rs.getString(jobNameColumn)), new IdKey(rs.getString(dataKeyColumn)));
+            return new Job(rs.getLong(jobIdColumn),JobName.valueOf(rs.getString(jobGroupColumn) + "_" + rs.getString(jobNameColumn)), new IdKey(rs.getString(dataKeyColumn)));
         });
     }
 

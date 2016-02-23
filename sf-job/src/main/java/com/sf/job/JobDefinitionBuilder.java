@@ -18,7 +18,7 @@ public class JobDefinitionBuilder<F,T> {
     private ItemReader<F,T> itemReader;
     private ItemProcessor<T> itemProcessor;
     private ItemWriter<T> itemWriter;
-    private Map<String,Object> jobExecutionParameters = new TreeMap<>();
+    private Map<String,Integer> jobExecutionParameters = new TreeMap<>();
 
     private JobDefinitionBuilder() {
     }

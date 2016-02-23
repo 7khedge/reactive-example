@@ -15,7 +15,7 @@ public class JobExecutionParametersUtilShould {
 
     @Test
     public void createMapStrings() {
-        Map<String, String> stringStringMap = JobExecutionParametersUtil.jobExecutionParametersMap(DefaultJobExecutionParameters.values());
+        Map<String, Integer> stringStringMap = JobExecutionParametersUtil.jobExecutionParametersMap(DefaultJobExecutionParameters.values());
         MatcherAssert.assertThat(stringStringMap.size(), CoreMatchers.equalTo(10));
 
 

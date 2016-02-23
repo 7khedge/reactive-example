@@ -20,20 +20,20 @@ public class TruncateUtil {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private static List<String> ddlList = Arrays.asList(
+    private List<String> ddlList = Arrays.asList(
             "001_create_table_deltaRun.ddl",
             "002_create_table_deltaRecord.ddl",
             "003_create_table_job.ddl",
             "004_create_table_jobExecution.ddl");
 
-    private static List<String> tableList = Arrays.asList("job","jobExecution","deltaRun","deltaRecord");
+    private List<String> tableList = Arrays.asList("job","jobExecution","deltaRun","deltaRecord");
 
     public TruncateUtil(DataSource  dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     public void truncateAllTables() {
-        tableList.forEach(this::truncateATable);
+        this.tableList.forEach(this::truncateATable);
     }
 
     public void truncateATable(String table) {
@@ -41,7 +41,15 @@ public class TruncateUtil {
     }
 
     public void executeAllDDL(){
-        ddlList.forEach(this::executeDDL);
+        this.ddlList.forEach(this::executeDDL);
+    }
+
+    public void dropAllTables(){
+        this.tableList.forEach(this::dropTable);
+    }
+
+    public void dropTable(String table){
+        this.jdbcTemplate.execute("DROP TABLE " + table);
     }
 
     public void executeDDL(String ddlFile)  {
@@ -60,6 +68,4 @@ public class TruncateUtil {
         }
         return ddlFileString;
     }
-
-
 }
