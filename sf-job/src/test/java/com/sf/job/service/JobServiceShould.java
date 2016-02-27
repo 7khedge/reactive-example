@@ -3,8 +3,8 @@ package com.sf.job.service;
 import com.sf.job.domain.*;
 import com.sf.util.datasource.DataSourceUtil;
 import com.sf.util.datasource.TruncateUtil;
-import com.sf.job.JobDefinition;
-import com.sf.job.JobDefinitionBuilder;
+import com.sf.job.definition.JobDefinition;
+import com.sf.job.definition.JobDefinitionBuilder;
 import com.sf.job.repository.jdbc.JobExecutionJdbcRepository;
 import com.sf.job.repository.jdbc.JobJdbcRepository;
 import org.hamcrest.CoreMatchers;
@@ -34,16 +34,16 @@ public class JobServiceShould {
     public void addAJob(){
         //Given
         //When
-        Job createdJob = jobService.addJob(testJob);
+        Job createdJob = jobService.addJob(JobName.SNS_ApplicationInstance, testJob);
         //Then
-        Job retrievedJob = jobService.getJob(testJob.getJobName());
+        Job retrievedJob = jobService.getJob(JobName.SNS_ApplicationInstance);
         MatcherAssert.assertThat(createdJob,CoreMatchers.equalTo(retrievedJob));
     }
 
     @Test
     public void startJob(){
         //Given
-        jobService.addJob(testJob);
+        jobService.addJob(JobName.SNS_ApplicationInstance,testJob);
         //When
         JobExecution jobExecution = jobService.startJob(SNS_ApplicationInstance,testJob.getJobExecutionParameters());
         //Then
@@ -52,7 +52,7 @@ public class JobServiceShould {
 
     private JobDefinition<String,JsonRecord> getTestJob(JobConfig<String,JsonRecord> jobConfig) {
         return JobDefinitionBuilder.<String, JsonRecord>jobDefinition()
-                .name(jobConfig.getName())
+                .jobType(jobConfig.getName())
                 .idKey(jobConfig.getId())
                 .observableItems(jobConfig.getObservableItems())
                 .itemReader(jobConfig.getItemReader())

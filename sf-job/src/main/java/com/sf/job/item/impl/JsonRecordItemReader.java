@@ -1,9 +1,9 @@
-package com.sf.job.testjob;
+package com.sf.job.item.impl;
 
 
 import com.sf.job.domain.IdKey;
-import com.sf.job.ItemReader;
 import com.sf.job.domain.JsonRecord;
+import com.sf.job.item.ItemReader;
 import com.sf.util.json.JsonUtil;
 
 public class JsonRecordItemReader implements ItemReader<String,JsonRecord> {

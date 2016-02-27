@@ -1,4 +1,4 @@
-package com.sf.job;
+package com.sf.util.domain;
 
 import com.google.common.base.Preconditions;
 

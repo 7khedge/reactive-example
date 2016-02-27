@@ -1,10 +1,10 @@
 package com.sf.job.service;
 
 import com.sf.job.domain.IdKey;
-import com.sf.job.ItemProcessor;
-import com.sf.job.ItemReader;
-import com.sf.job.ItemWriter;
-import com.sf.job.domain.JobName;
+import com.sf.job.item.ItemProcessor;
+import com.sf.job.item.ItemReader;
+import com.sf.job.item.ItemWriter;
+import com.sf.job.domain.JobType;
 import rx.observables.ConnectableObservable;
 
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by adityasofat on 20/02/2016.
  */
 public interface JobConfig<F,T> {
-    JobName getName();
+    JobType getName();
 
     IdKey getId();
 

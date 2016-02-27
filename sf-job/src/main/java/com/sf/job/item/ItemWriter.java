@@ -1,4 +1,4 @@
-package com.sf.job;
+package com.sf.job.item;
 
 /**
  * Created by adityasofat on 20/11/2015.

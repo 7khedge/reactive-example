@@ -1,6 +1,6 @@
 package com.sf.job.domain;
 
-import com.sf.job.TinyType;
+import com.sf.util.domain.TinyType;
 
 /**
  * Created by adityasofat on 08/02/2016.

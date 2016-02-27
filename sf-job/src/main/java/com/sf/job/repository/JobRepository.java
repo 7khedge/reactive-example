@@ -4,6 +4,7 @@ package com.sf.job.repository;
 import com.sf.job.domain.IdKey;
 import com.sf.job.domain.Job;
 import com.sf.job.domain.JobName;
+import com.sf.job.domain.JobType;
 
 /**
  * Created by adityasofat on 13/02/2016.

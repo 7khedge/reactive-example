@@ -1,4 +1,4 @@
-package com.sf.job.testjob;
+package com.sf.job.parameter;
 
 
 /**

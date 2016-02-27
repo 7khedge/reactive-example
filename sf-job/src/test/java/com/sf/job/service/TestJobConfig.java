@@ -1,10 +1,14 @@
 package com.sf.job.service;
 
-import com.sf.job.*;
 import com.sf.job.domain.IdKey;
-import com.sf.job.domain.JobName;
+import com.sf.job.domain.JobType;
 import com.sf.job.domain.JsonRecord;
-import com.sf.job.testjob.*;
+import com.sf.job.item.*;
+import com.sf.job.item.impl.JsonRecordItemCollectorProcessor;
+import com.sf.job.item.impl.JsonRecordItemReader;
+import com.sf.job.item.impl.JsonRecordItemWriter;
+import com.sf.job.observer.FileObserver;
+import com.sf.job.parameter.DefaultJobExecutionParameters;
 import com.sf.util.file.FileUtil;
 import rx.observables.ConnectableObservable;
 
@@ -18,25 +22,13 @@ import java.util.TreeMap;
  */
 public class TestJobConfig implements JobConfig<String,JsonRecord> {
 
-    private final List<JsonRecord> processedCollector;
-    private final List<String> writtenCollector;
-
     public TestJobConfig() {
-        this.processedCollector = new ArrayList<>();
-        this.writtenCollector = new ArrayList<>();
-    }
 
-    public List<JsonRecord> getProcessedCollector() {
-        return new ArrayList<>(processedCollector);
-    }
-
-    public List<String> getWrittenCollector() {
-        return new ArrayList<>(writtenCollector);
     }
 
     @Override
-    public JobName getName() {
-        return JobName.SNS_ApplicationInstance;
+    public JobType getName() {
+        return JobType.simpleJsonRecord;
     }
 
     @Override
@@ -56,12 +48,12 @@ public class TestJobConfig implements JobConfig<String,JsonRecord> {
 
     @Override
     public ItemProcessor<JsonRecord> getItemProcessor() {
-        return new JsonRecordItemProcessor(processedCollector);
+        return new JsonRecordItemCollectorProcessor();
     }
 
     @Override
     public ItemWriter<JsonRecord> getItemWrite() {
-        return new JsonRecordItemWriter(writtenCollector);
+        return new JsonRecordItemWriter();
     }
 
     @Override

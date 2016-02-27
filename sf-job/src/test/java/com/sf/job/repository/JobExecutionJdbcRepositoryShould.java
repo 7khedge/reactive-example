@@ -3,7 +3,7 @@ package com.sf.job.repository;
 import com.sf.job.domain.*;
 import com.sf.job.repository.jdbc.JobExecutionJdbcRepository;
 import com.sf.job.repository.jdbc.JobJdbcRepository;
-import com.sf.job.testjob.DefaultJobExecutionParameters;
+import com.sf.job.parameter.DefaultJobExecutionParameters;
 import com.sf.util.datasource.DataSourceUtil;
 import com.sf.util.datasource.TruncateUtil;
 import org.hamcrest.CoreMatchers;

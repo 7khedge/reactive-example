@@ -1,6 +1,6 @@
 package com.sf.job.domain;
 
-import com.sf.job.testjob.DefaultJobExecutionParameters;
+import com.sf.job.parameter.DefaultJobExecutionParameters;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.sf.job;
+package com.sf.job.observer;
 
 import rx.Observable;
 import rx.Subscriber;

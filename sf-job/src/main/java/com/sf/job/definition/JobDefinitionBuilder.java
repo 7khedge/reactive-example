@@ -1,7 +1,10 @@
-package com.sf.job;
+package com.sf.job.definition;
 
 import com.sf.job.domain.IdKey;
-import com.sf.job.domain.JobName;
+import com.sf.job.domain.JobType;
+import com.sf.job.item.ItemProcessor;
+import com.sf.job.item.ItemReader;
+import com.sf.job.item.ItemWriter;
 import rx.observables.ConnectableObservable;
 
 import java.util.Map;
@@ -12,7 +15,7 @@ import java.util.TreeMap;
  */
 public class JobDefinitionBuilder<F,T> {
 
-    private JobName jobName;
+    private JobType jobType;
     private IdKey idKey;
     private ConnectableObservable<F> observableItems;
     private ItemReader<F,T> itemReader;
@@ -27,8 +30,8 @@ public class JobDefinitionBuilder<F,T> {
         return new JobDefinitionBuilder<>();
     }
 
-    public JobDefinitionBuilder<F,T> name(JobName jobName) {
-        this.jobName = jobName;
+    public JobDefinitionBuilder<F,T> jobType(JobType jobType) {
+        this.jobType = jobType;
         return this;
     }
 
@@ -38,7 +41,7 @@ public class JobDefinitionBuilder<F,T> {
     }
 
     public JobDefinition<F,T> build() {
-        return new JobDefinition<>(jobName, idKey, observableItems, itemReader, itemProcessor, itemWriter, jobExecutionParameters);
+        return new JobDefinition<>(jobType, idKey, observableItems, itemReader, itemProcessor, itemWriter, jobExecutionParameters);
     }
 
     public JobDefinitionBuilder<F,T> itemReader(ItemReader<F,T> itemReader) {

@@ -1,5 +1,6 @@
-package com.sf.job;
+package com.sf.job.observer;
 
+import com.sf.job.observer.FileObserver;
 import com.sf.util.file.FileUtil;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;

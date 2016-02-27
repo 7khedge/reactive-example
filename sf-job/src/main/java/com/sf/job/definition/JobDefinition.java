@@ -1,7 +1,10 @@
-package com.sf.job;
+package com.sf.job.definition;
 
 import com.sf.job.domain.IdKey;
-import com.sf.job.domain.JobName;
+import com.sf.job.domain.JobType;
+import com.sf.job.item.ItemProcessor;
+import com.sf.job.item.ItemReader;
+import com.sf.job.item.ItemWriter;
 import rx.observables.ConnectableObservable;
 
 import java.util.Map;
@@ -10,7 +13,7 @@ import java.util.Map;
  * Created by adityasofat on 11/11/2015.
  */
 public class JobDefinition<F,T> {
-    private final JobName jobName;
+    private final JobType jobType;
     private final IdKey idKey;
     private final ConnectableObservable<F> items;
     private final ItemReader<F,T> itemReader;
@@ -18,14 +21,14 @@ public class JobDefinition<F,T> {
     private final ItemWriter<T> itemWriter;
     private final Map<String,Integer> jobExecutionParameters;
 
-    public JobDefinition(JobName jobName,
+    public JobDefinition(JobType jobType,
                          IdKey idKey,
                          ConnectableObservable<F> items,
                          ItemReader<F,T> itemReader,
                          ItemProcessor<T> itemProcessor,
                          ItemWriter<T> itemWriter,
                          Map<String,Integer> jobExecutionParameters) {
-        this.jobName = jobName;
+        this.jobType = jobType;
         this.idKey = idKey;
         this.items = items;
         this.itemReader = itemReader;
@@ -34,8 +37,8 @@ public class JobDefinition<F,T> {
         this.jobExecutionParameters = jobExecutionParameters;
     }
 
-    public JobName getJobName() {
-        return jobName;
+    public JobType getJobType() {
+        return jobType;
     }
 
     public IdKey getIdKey() {

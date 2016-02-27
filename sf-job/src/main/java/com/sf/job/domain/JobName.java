@@ -1,12 +1,11 @@
 package com.sf.job.domain;
 
-import java.util.IdentityHashMap;
-
 /**
  * Created by adityasofat on 20/02/2016.
  */
 public enum JobName {
-    SNS_ApplicationInstance("SNS","ApplicationInstance")
+    SNS_ApplicationInstance("SNS","ApplicationInstance"),
+    A2P_ApplicationInstance("A2P","ApplicationInstance")
     ;
 
     private final String group;

@@ -40,6 +40,8 @@
         <spring.version>4.1.6.RELEASE</spring.version>
         <mysql.jdbc.version>5.1.6</mysql.jdbc.version>
         <mybatis.version>3.3.0</mybatis.version>
+        <!-- ioc -->
+        <spring.version>4.2.4.RELEASE</spring.version>
         <!-- streaming-->
         <kafka.version>0.9.0.0</kafka.version>
         <!-- logging -->
@@ -137,6 +139,12 @@
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
+            </dependency>
+            <!-- spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
             </dependency>
             <!-- streaming -->
             <dependency>
