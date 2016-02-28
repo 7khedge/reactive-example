@@ -19,7 +19,8 @@ public class JobRunnerShould {
         //Given
         JobCollectorDefinition<String,JsonRecord> jobDefinition = JobFactory.getTestJob(JobType.simpleJsonRecord,
                 new IdKey("id"),
-                "2_ApplicationInstance.json");
+                "2_ApplicationInstance.json"
+                );
         JobCollectorRunner<String,JsonRecord> jobCollectorRunner = new JobCollectorRunner<>(jobDefinition);
         //When
         jobCollectorRunner.startJob();

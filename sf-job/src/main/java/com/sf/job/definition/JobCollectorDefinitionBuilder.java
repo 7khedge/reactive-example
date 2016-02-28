@@ -57,13 +57,6 @@ public class JobCollectorDefinitionBuilder<F,T> {
         return this;
     }
 
-    public <E> JobCollectorDefinitionBuilder<F,T> jobExecutionParameters(Class<E> enumType) {
-        for(E enumInstance : enumType.getEnumConstants()){
-            jobExecutionParameters.put(enumInstance.toString(),0);
-        }
-        return this;
-    }
-
     public JobCollectorDefinitionBuilder<F,T> jobExecutionParameters(Map<String,Integer> parameterMap) {
         jobExecutionParameters.putAll(parameterMap);
         return this;

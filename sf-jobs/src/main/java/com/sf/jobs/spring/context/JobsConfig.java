@@ -12,12 +12,19 @@ import com.sf.job.domain.IdKey;
 import com.sf.job.domain.JobType;
 import com.sf.job.domain.JsonRecord;
 import com.sf.job.parameter.DefaultJobExecutionParameters;
+import com.sf.jobs.spring.context.jobs.ItemObservable;
+import com.sf.jobs.spring.context.jobs.SimpleTestJobType;
+import com.sf.util.domain.EnumUtil;
 import com.sf.util.file.FileUtil;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import rx.observables.ConnectableObservable;
+
+import static com.sf.jobs.spring.context.jobs.ItemObservable.connectableObservable;
+import static com.sf.jobs.spring.context.jobs.SimpleTestJobType.simpleJobType;
+import static com.sf.util.domain.EnumUtil.enumParameters;
 
 /**
  * Created by adityasofat on 24/02/2016.
@@ -26,28 +33,15 @@ import rx.observables.ConnectableObservable;
 public class JobsConfig {
 
     @Bean
-    @Scope( scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    @Scope("prototype")
     public JobCollectorDefinition<String,JsonRecord> simpleJsonRecordJob() {
-        return getTestJob(JobType.simpleJsonRecord,
+        return simpleJobType(JobType.simpleJsonRecord,
                 new IdKey("id"),
-                connectableObservable("2_ApplicationInstance.json"));
+                connectableObservable("2_ApplicationInstance.json"),
+                enumParameters(DefaultJobExecutionParameters.class));
     }
 
-    private ConnectableObservable<String> connectableObservable(String fileName){
-        return new FileObserver().createObserver(FileUtil.getClassPathInputStream(fileName));
-    }
 
-    private JobCollectorDefinition<String, JsonRecord> getTestJob(JobType jobType,
-                                                                  IdKey idKey,
-                                                                  ConnectableObservable<String> connectableObservable) {
-        return JobCollectorDefinitionBuilder.<String, JsonRecord>jobDefinition()
-                .jobType(jobType)
-                .idKey(idKey)
-                .observableItems(connectableObservable)
-                .itemReader(new JsonRecordItemReader(idKey))
-                .itemProcessor(new JsonRecordItemCollectorProcessor())
-                .itemWriter(new JsonRecordItemWriter())
-                .jobExecutionParameters(DefaultJobExecutionParameters.class)
-                .build();
-    }
+
+
 }

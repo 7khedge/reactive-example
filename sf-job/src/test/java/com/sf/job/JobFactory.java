@@ -31,7 +31,8 @@ public class JobFactory {
 
     public static JobCollectorDefinition<String, JsonRecord> getTestJob(JobType jobType,
                                                                         IdKey idKey,
-                                                                        String fileName) {
+                                                                        String fileName,
+                                                                        Map<String,Integer> parameterMap) {
         return JobCollectorDefinitionBuilder.<String,JsonRecord>jobDefinition()
                 .jobType(jobType)
                 .idKey(idKey)
@@ -39,7 +40,7 @@ public class JobFactory {
                 .itemReader(new JsonRecordItemReader(idKey))
                 .itemProcessor(new JsonRecordItemCollectorProcessor())
                 .itemWriter(new JsonRecordItemWriter())
-                .jobExecutionParameters(DefaultJobExecutionParameters.class)
+                .jobExecutionParameters(parameterMap)
                 .build();
     }
 }
