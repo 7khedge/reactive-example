@@ -24,15 +24,14 @@ import static com.sf.jobs.spring.context.jobs.ItemWriteConfig.jsonRecordItemWrit
  */
 public class SimpleTestJobType {
 
-    public static JobCollectorDefinition<String, JsonRecord> simpleJobType(JobType jobType,
-                                                                    IdKey idKey,
-                                                                    ConnectableObservable<String> connectableObservable,
-                                                                    Map<String, Integer> parameterMap) {
+    public static JobCollectorDefinition<String, JsonRecord> simpleJsonRecordJobType(IdKey idKey,
+                                                                                     ConnectableObservable<String> connectableObservable,
+                                                                                     Map<String, Integer> parameterMap) {
         /**
          * returns definition based on JobType
          */
         return JobCollectorDefinitionBuilder.<String, JsonRecord>jobDefinition()
-                .jobType(jobType)
+                .jobType(JobType.simpleJsonRecord)
                 .idKey(idKey)
                 .observableItems(connectableObservable)
                 .itemReader(jsonRecordItemReader(idKey))

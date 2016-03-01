@@ -38,7 +38,7 @@ public class JobExecutionJdbcRepositoryShould {
     private Job createJob() {
         JobJdbcRepository jobJdbcRepository = new JobJdbcRepository(simpleDatSource());
         jobJdbcRepository.init();
-        return jobJdbcRepository.create(JobName.SNS_ApplicationInstance, new IdKey("id"));
+        return jobJdbcRepository.create(new JobName("SNS","ApplicationInstance"), new IdKey("id"));
     }
 
 }

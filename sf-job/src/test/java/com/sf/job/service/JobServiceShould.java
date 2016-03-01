@@ -1,18 +1,17 @@
 package com.sf.job.service;
 
-import com.sf.job.domain.*;
-import com.sf.util.datasource.DataSourceUtil;
-import com.sf.util.datasource.TruncateUtil;
 import com.sf.job.definition.JobDefinition;
 import com.sf.job.definition.JobDefinitionBuilder;
+import com.sf.job.domain.*;
 import com.sf.job.repository.jdbc.JobExecutionJdbcRepository;
 import com.sf.job.repository.jdbc.JobJdbcRepository;
+import com.sf.util.datasource.DataSourceUtil;
+import com.sf.util.datasource.TruncateUtil;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.sf.job.domain.JobName.SNS_ApplicationInstance;
 
 /**
  * Created by adityasofat on 20/02/2016.
@@ -23,6 +22,7 @@ public class JobServiceShould {
             new JobJdbcRepository(DataSourceUtil.simpleDatSource()),
             new JobExecutionJdbcRepository(DataSourceUtil.simpleDatSource()));
     private JobDefinition<String, JsonRecord> testJob = getTestJob(new TestJobConfig());
+    private JobName jobName = new JobName("SNS","ApplicationInstance");
 
     @Before
     public void clearDownTables(){
@@ -34,18 +34,18 @@ public class JobServiceShould {
     public void addAJob(){
         //Given
         //When
-        Job createdJob = jobService.addJob(JobName.SNS_ApplicationInstance, testJob);
+        Job createdJob = jobService.addJob(jobName, testJob);
         //Then
-        Job retrievedJob = jobService.getJob(JobName.SNS_ApplicationInstance);
+        Job retrievedJob = jobService.getJob(jobName);
         MatcherAssert.assertThat(createdJob,CoreMatchers.equalTo(retrievedJob));
     }
 
     @Test
     public void startJob(){
         //Given
-        jobService.addJob(JobName.SNS_ApplicationInstance,testJob);
+        jobService.addJob(jobName,testJob);
         //When
-        JobExecution jobExecution = jobService.startJob(SNS_ApplicationInstance,testJob.getJobExecutionParameters());
+        JobExecution jobExecution = jobService.startJob(jobName,testJob.getJobExecutionParameters());
         //Then
         MatcherAssert.assertThat(jobExecution.getStatus(),CoreMatchers.equalTo(JobExecutionStatus.RUNNING));
     }

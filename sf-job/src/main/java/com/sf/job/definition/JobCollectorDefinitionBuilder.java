@@ -39,7 +39,7 @@ public class JobCollectorDefinitionBuilder<F,T> {
     }
 
     public JobCollectorDefinition<F,T> build() {
-        return new JobCollectorDefinition<F,T>(jobType, idKey, observableItems, itemReader, itemProcessor, itemWriter, jobExecutionParameters);
+        return new JobCollectorDefinition<>(jobType, idKey, observableItems, itemReader, itemProcessor, itemWriter, jobExecutionParameters);
     }
 
     public JobCollectorDefinitionBuilder<F,T> itemReader(ItemReader<F,T> itemReader) {

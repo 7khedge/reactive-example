@@ -5,6 +5,8 @@ import com.sf.job.definition.JobCollectorDefinition;
 import com.sf.job.domain.IdKey;
 import com.sf.job.domain.JobType;
 import com.sf.job.domain.JsonRecord;
+import com.sf.job.parameter.DefaultJobExecutionParameters;
+import com.sf.util.domain.EnumUtil;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -19,8 +21,8 @@ public class JobRunnerShould {
         //Given
         JobCollectorDefinition<String,JsonRecord> jobDefinition = JobFactory.getTestJob(JobType.simpleJsonRecord,
                 new IdKey("id"),
-                "2_ApplicationInstance.json"
-                );
+                "2_ApplicationInstance.json",
+                EnumUtil.enumParameters(DefaultJobExecutionParameters.class));
         JobCollectorRunner<String,JsonRecord> jobCollectorRunner = new JobCollectorRunner<>(jobDefinition);
         //When
         jobCollectorRunner.startJob();

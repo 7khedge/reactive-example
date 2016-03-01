@@ -23,6 +23,11 @@
             <artifactId>sf-util</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sf</groupId>
+            <artifactId>sf-test</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
         <!-- ioc-->
         <dependency>
             <groupId>org.springframework</groupId>

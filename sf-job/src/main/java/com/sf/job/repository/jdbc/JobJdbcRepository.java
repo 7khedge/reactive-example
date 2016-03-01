@@ -7,11 +7,16 @@ import com.sf.job.domain.JobName;
 import com.sf.job.repository.JobRepository;
 import org.apache.ibatis.jdbc.SQL;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Created by adityasofat on 13/02/2016.
@@ -25,8 +30,20 @@ public class JobJdbcRepository implements JobRepository {
         jobId,
         jobGroup,
         jobName,
-        dataKey;
+        dataKey
     }
+
+    private RowMapper<Job> mapper =  (rs, rowNum) -> {
+        try {
+            return new Job(rs.getLong(dbColumns.jobId.name()),
+                    new JobName(rs.getString(dbColumns.jobGroup.name()),rs.getString(dbColumns.jobName.name())),
+                    new IdKey(rs.getString(dbColumns.dataKey.name())));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    };
+
+
 
     public JobJdbcRepository(DataSource dataSource) {
         this.insertJob = new SimpleJdbcInsert(dataSource)
@@ -55,11 +72,13 @@ public class JobJdbcRepository implements JobRepository {
                 .WHERE(dbColumns.jobGroup.name() + "='" + jobName.getGroup() + "'")
                 .AND()
                 .WHERE(dbColumns.jobName.name() + "='" + jobName.getName() + "'");
-        return jdbcTemplate.queryForObject(sql.toString(), (rs, rowNum) -> {
-            return new Job(rs.getLong(dbColumns.jobId.name()),
-                    JobName.valueOf(rs.getString(dbColumns.jobGroup.name()) + "_" + rs.getString(dbColumns.jobName.name())),
-                    new IdKey(rs.getString(dbColumns.dataKey.name())));
-        });
+        return jdbcTemplate.queryForObject(sql.toString(), mapper);
+    }
+
+    @Override
+    public List<Job> readAllJobs() {
+        SQL sql = new SQL().SELECT("*").FROM(tableName);
+        return jdbcTemplate.query(sql.toString(), mapper);
     }
 
 }
