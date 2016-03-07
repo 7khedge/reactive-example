@@ -20,7 +20,7 @@ import static com.sf.jobs.spring.context.jobs.ItemReaderConfig.jsonRecordItemRea
 import static com.sf.jobs.spring.context.jobs.ItemWriteConfig.jsonRecordItemWriter;
 
 /**
- * Create a JobDefinition for SimpleTestJob Type
+ * Create a SimpleJobDefinition for SimpleTestJob Type
  */
 public class SimpleTestJobType {
 

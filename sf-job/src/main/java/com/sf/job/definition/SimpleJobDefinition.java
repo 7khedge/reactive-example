@@ -2,31 +2,32 @@ package com.sf.job.definition;
 
 import com.sf.job.domain.IdKey;
 import com.sf.job.domain.JobType;
-import com.sf.job.item.*;
+import com.sf.job.item.ItemProcessor;
+import com.sf.job.item.ItemReader;
+import com.sf.job.item.ItemWriter;
 import rx.observables.ConnectableObservable;
 
 import java.util.Map;
 
 /**
- * Created by adityasofat on 27/02/2016.
+ * Created by adityasofat on 11/11/2015.
  */
-public class JobCollectorDefinition<F,T>  implements  JobDefinition {
-
+public class SimpleJobDefinition<F,T>  implements JobDefinition {
     private final JobType jobType;
     private final IdKey idKey;
     private final ConnectableObservable<F> items;
     private final ItemReader<F,T> itemReader;
-    private final ItemCollectorProcessor<T> itemProcessor;
-    private final ItemCollectorWriter<T,F> itemWriter;
+    private final ItemProcessor<T> itemProcessor;
+    private final ItemWriter<T> itemWriter;
     private final Map<String,Integer> jobExecutionParameters;
 
-    public JobCollectorDefinition(JobType jobType,
-                                  IdKey idKey,
-                                  ConnectableObservable<F> items,
-                                  ItemReader<F,T> itemReader,
-                                  ItemCollectorProcessor<T> itemProcessor,
-                                  ItemCollectorWriter<T,F> itemWriter,
-                                  Map<String,Integer> jobExecutionParameters) {
+    public SimpleJobDefinition(JobType jobType,
+                               IdKey idKey,
+                               ConnectableObservable<F> items,
+                               ItemReader<F,T> itemReader,
+                               ItemProcessor<T> itemProcessor,
+                               ItemWriter<T> itemWriter,
+                               Map<String,Integer> jobExecutionParameters) {
         this.jobType = jobType;
         this.idKey = idKey;
         this.items = items;
@@ -54,11 +55,11 @@ public class JobCollectorDefinition<F,T>  implements  JobDefinition {
         return itemReader;
     }
 
-    public ItemCollectorProcessor<T> getItemCollectorProcessor() {
+    public ItemProcessor<T> getItemProcessor() {
         return itemProcessor;
     }
 
-    public ItemCollectorWriter<T,F> getItemCollectorWriter() {
+    public ItemWriter<T> getItemWriter() {
         return itemWriter;
     }
 

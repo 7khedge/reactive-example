@@ -1,7 +1,7 @@
 package com.sf.job.service;
 
-import com.sf.job.definition.JobDefinition;
-import com.sf.job.definition.JobDefinitionBuilder;
+import com.sf.job.definition.SimpleJobDefinition;
+import com.sf.job.definition.SimpleJobDefinitionBuilder;
 import com.sf.job.domain.*;
 import com.sf.job.repository.jdbc.JobExecutionJdbcRepository;
 import com.sf.job.repository.jdbc.JobJdbcRepository;
@@ -18,11 +18,16 @@ import org.junit.Test;
  */
 public class JobServiceShould {
 
+    /**
+     * Mocks out the following call
+     * String[] beanNamesForType = applicationContext.getBeanNamesForType(JobCollectorDefinition.class);
+     */
+    private final String jobBeans[] = {"SNSApplicationInstance", "A2PApplicationInstance"};
+
     private JobService jobService = new DefaultJobService(
-            new JobJdbcRepository(DataSourceUtil.simpleDatSource()),
+            new JobFactoryImpl(jobBeans, new JobJdbcRepository(DataSourceUtil.simpleDatSource())),
             new JobExecutionJdbcRepository(DataSourceUtil.simpleDatSource()));
-    private JobDefinition<String, JsonRecord> testJob = getTestJob(new TestJobConfig());
-    private JobName jobName = new JobName("SNS","ApplicationInstance");
+    private SimpleJobDefinition<String, JsonRecord> testJob = getTestJob(new TestJobConfig());
 
     @Before
     public void clearDownTables(){
@@ -30,28 +35,8 @@ public class JobServiceShould {
         truncateUtil.truncateAllTables();
     }
 
-    @Test
-    public void addAJob(){
-        //Given
-        //When
-        Job createdJob = jobService.addJob(jobName, testJob);
-        //Then
-        Job retrievedJob = jobService.getJob(jobName);
-        MatcherAssert.assertThat(createdJob,CoreMatchers.equalTo(retrievedJob));
-    }
-
-    @Test
-    public void startJob(){
-        //Given
-        jobService.addJob(jobName,testJob);
-        //When
-        JobExecution jobExecution = jobService.startJob(jobName,testJob.getJobExecutionParameters());
-        //Then
-        MatcherAssert.assertThat(jobExecution.getStatus(),CoreMatchers.equalTo(JobExecutionStatus.RUNNING));
-    }
-
-    private JobDefinition<String,JsonRecord> getTestJob(JobConfig<String,JsonRecord> jobConfig) {
-        return JobDefinitionBuilder.<String, JsonRecord>jobDefinition()
+    private SimpleJobDefinition<String,JsonRecord> getTestJob(JobConfig<String,JsonRecord> jobConfig) {
+        return SimpleJobDefinitionBuilder.<String, JsonRecord>jobDefinition()
                 .jobType(jobConfig.getName())
                 .idKey(jobConfig.getId())
                 .observableItems(jobConfig.getObservableItems())

@@ -1,7 +1,6 @@
 package com.sf.job.definition;
 
-import com.sf.job.JobFactory;
-import com.sf.job.definition.JobDefinition;
+import com.sf.job.TestJobFactory;
 import com.sf.job.domain.IdKey;
 import com.sf.job.domain.JobType;
 import com.sf.job.domain.JsonRecord;
@@ -20,7 +19,7 @@ public class JobDefinitionBuilderShould {
     public void withReader(){
         //Given
         //When
-        JobCollectorDefinition<String,JsonRecord> jobDefinition = JobFactory.getTestJob(
+        JobCollectorDefinition<String,JsonRecord> jobDefinition = TestJobFactory.getTestJob(
                 JobType.simpleJsonRecord,
                 new IdKey("id"),
                 "2_ApplicationInstance.json",

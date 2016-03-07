@@ -1,6 +1,6 @@
 package com.sf.job.runner;
 
-import com.sf.job.JobFactory;
+import com.sf.job.TestJobFactory;
 import com.sf.job.definition.JobCollectorDefinition;
 import com.sf.job.domain.IdKey;
 import com.sf.job.domain.JobType;
@@ -19,7 +19,7 @@ public class JobRunnerShould {
     @Test
     public void runStartJob(){
         //Given
-        JobCollectorDefinition<String,JsonRecord> jobDefinition = JobFactory.getTestJob(JobType.simpleJsonRecord,
+        JobCollectorDefinition<String,JsonRecord> jobDefinition = TestJobFactory.getTestJob(JobType.simpleJsonRecord,
                 new IdKey("id"),
                 "2_ApplicationInstance.json",
                 EnumUtil.enumParameters(DefaultJobExecutionParameters.class));

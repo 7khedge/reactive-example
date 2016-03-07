@@ -13,7 +13,7 @@ import java.util.TreeMap;
 /**
  * Created by adityasofat on 11/11/2015.
  */
-public class JobDefinitionBuilder<F,T> {
+public class SimpleJobDefinitionBuilder<F,T> {
 
     private JobType jobType;
     private IdKey idKey;
@@ -23,55 +23,55 @@ public class JobDefinitionBuilder<F,T> {
     private ItemWriter<T> itemWriter;
     private Map<String,Integer> jobExecutionParameters = new TreeMap<>();
 
-    private JobDefinitionBuilder() {
+    private SimpleJobDefinitionBuilder() {
     }
 
-    public static <F,T> JobDefinitionBuilder<F,T> jobDefinition() {
-        return new JobDefinitionBuilder<>();
+    public static <F,T> SimpleJobDefinitionBuilder<F,T> jobDefinition() {
+        return new SimpleJobDefinitionBuilder<>();
     }
 
-    public JobDefinitionBuilder<F,T> jobType(JobType jobType) {
+    public SimpleJobDefinitionBuilder<F,T> jobType(JobType jobType) {
         this.jobType = jobType;
         return this;
     }
 
-    public JobDefinitionBuilder<F,T> idKey(IdKey idKey){
+    public SimpleJobDefinitionBuilder<F,T> idKey(IdKey idKey){
         this.idKey = idKey;
         return this;
     }
 
-    public JobDefinition<F,T> build() {
-        return new JobDefinition<>(jobType, idKey, observableItems, itemReader, itemProcessor, itemWriter, jobExecutionParameters);
+    public SimpleJobDefinition<F,T> build() {
+        return new SimpleJobDefinition<>(jobType, idKey, observableItems, itemReader, itemProcessor, itemWriter, jobExecutionParameters);
     }
 
-    public JobDefinitionBuilder<F,T> itemReader(ItemReader<F,T> itemReader) {
+    public SimpleJobDefinitionBuilder<F,T> itemReader(ItemReader<F,T> itemReader) {
         this.itemReader = itemReader;
         return this;
     }
 
-    public JobDefinitionBuilder<F,T> itemProcessor(ItemProcessor<T> itemProcessor) {
+    public SimpleJobDefinitionBuilder<F,T> itemProcessor(ItemProcessor<T> itemProcessor) {
         this.itemProcessor = itemProcessor;
         return this;
     }
 
-    public JobDefinitionBuilder<F,T> itemWriter(ItemWriter<T> itemWriter) {
+    public SimpleJobDefinitionBuilder<F,T> itemWriter(ItemWriter<T> itemWriter) {
         this.itemWriter = itemWriter;
         return this;
     }
 
-    public <E> JobDefinitionBuilder<F,T> jobExecutionParameters(Class<E> enumType) {
+    public <E> SimpleJobDefinitionBuilder<F,T> jobExecutionParameters(Class<E> enumType) {
         for(E enumInstance : enumType.getEnumConstants()){
             jobExecutionParameters.put(enumInstance.toString(),0);
         }
         return this;
     }
 
-    public JobDefinitionBuilder<F,T> jobExecutionParameters(Map<String,Integer> parameterMap) {
+    public SimpleJobDefinitionBuilder<F,T> jobExecutionParameters(Map<String,Integer> parameterMap) {
         jobExecutionParameters.putAll(parameterMap);
         return this;
     }
 
-    public JobDefinitionBuilder<F,T> observableItems(ConnectableObservable<F> observableItems) {
+    public SimpleJobDefinitionBuilder<F,T> observableItems(ConnectableObservable<F> observableItems) {
         this.observableItems = observableItems;
         return this;
     }

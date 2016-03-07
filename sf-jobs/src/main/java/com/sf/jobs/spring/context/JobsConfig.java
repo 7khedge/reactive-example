@@ -14,6 +14,15 @@ import static com.sf.util.domain.EnumUtil.enumParameters;
 
 /**
  * Created by adityasofat on 24/02/2016.
+ *
+ * Job Naming standard
+ * All job bean creation methods should be names
+ * according to
+ *
+ * GGGName
+ *
+ * Where the first three letters is the group name
+ * and the rest of is the name of the job
  */
 @Configuration
 public class JobsConfig {

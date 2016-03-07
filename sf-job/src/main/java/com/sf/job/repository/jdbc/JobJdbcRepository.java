@@ -43,8 +43,6 @@ public class JobJdbcRepository implements JobRepository {
         }
     };
 
-
-
     public JobJdbcRepository(DataSource dataSource) {
         this.insertJob = new SimpleJdbcInsert(dataSource)
                 .withTableName(tableName)

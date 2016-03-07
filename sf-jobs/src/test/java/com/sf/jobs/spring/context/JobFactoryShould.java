@@ -4,6 +4,9 @@ import com.sf.job.domain.Job;
 import com.sf.job.domain.JobName;
 import com.sf.job.repository.JobRepository;
 import com.sf.job.repository.jdbc.JobJdbcRepository;
+import com.sf.job.runner.JobCollectorRunner;
+import com.sf.job.service.JobFactory;
+import com.sf.job.service.JobFactoryImpl;
 import com.sf.util.datasource.DataSourceUtil;
 import com.sf.util.datasource.TruncateUtil;
 import org.hamcrest.CoreMatchers;
@@ -28,7 +31,7 @@ public class JobFactoryShould {
     }
 
     /**
-     * Mock out the following call
+     * Mocks out the following call
      * String[] beanNamesForType = applicationContext.getBeanNamesForType(JobCollectorDefinition.class);
      */
     private final String jobBeans[] = {"SNSApplicationInstance", "A2PApplicationInstance"};
@@ -38,28 +41,25 @@ public class JobFactoryShould {
         //Given
         //No JobDefinitions added
         JobFactory jobFactory = new JobFactoryImpl(jobBeans, jobRepository);
-        jobFactory.validateJobDefinitions();
     }
 
     @Test
     public void doesNotThrowNoJobDefinitionException() {
         //Given
-        getPopulatedJobFactory().validateJobDefinitions();
         MatcherAssert.assertThat(true, CoreMatchers.equalTo(true));
     }
 
     @Test
     public void syncJobNamesWithDatabase(){
         //Given
-        getPopulatedJobFactory().validateJobDefinitions();
         List<Job> jobs = jobRepository.readAllJobs();
         MatcherAssert.assertThat(jobs.size(),CoreMatchers.equalTo(2));
     }
 
     private JobFactory getPopulatedJobFactory(){
         JobFactory jobFactory = new JobFactoryImpl(jobBeans, new JobJdbcRepository(DataSourceUtil.simpleDatSource()));
-        jobFactory.add(new JobName(jobBeans[0]), jobsConfig.SNSApplicationInstance());
-        jobFactory.add(new JobName(jobBeans[1]), jobsConfig.A2PApplicationInstance());
+        jobFactory.add(new JobName(jobBeans[0]), new JobCollectorRunner<>(jobsConfig.SNSApplicationInstance()));
+        jobFactory.add(new JobName(jobBeans[1]), new JobCollectorRunner<>(jobsConfig.A2PApplicationInstance()));
         return jobFactory;
     }
 

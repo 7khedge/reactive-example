@@ -8,7 +8,7 @@ import rx.observers.SafeSubscriber;
 /**
  * Created by adityasofat on 08/02/2016.
  */
-public class JobCollectorRunner<F,T> {
+public class JobCollectorRunner<F,T> implements JobRunner {
     private final JobCollectorDefinition<F, T> jobCollectorDefinition;
 
     public JobCollectorRunner(JobCollectorDefinition<F,T> jobCollectorDefinition) {
@@ -32,6 +32,7 @@ public class JobCollectorRunner<F,T> {
         }
     });
 
+    @Override
     public void startJob() {
         ConnectableObservable<F> items = jobCollectorDefinition.getItems();
         items.subscribe(safeSubscriber);
