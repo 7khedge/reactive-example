@@ -9,6 +9,6 @@ import com.sf.jobx.domain.JobName;
 public class JobFactoryImpl implements JobFactory {
     @Override
     public void add(JobName jobName, JsonRecordFileConfig jsonRecordFileConfig) {
-
+        //Hello
     }
 }
