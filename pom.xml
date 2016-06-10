@@ -31,6 +31,7 @@
         <joda-time.version>2.3</joda-time.version>
         <!-- json -->
         <gson.version>2.5</gson.version>
+        <jackson.version>2.7.2</jackson.version>
         <!-- queue -->
         <chronicle.version>3.2.1</chronicle.version>
         <!-- project -->
@@ -118,6 +119,16 @@
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
             <!-- reactive  -->
             <dependency>

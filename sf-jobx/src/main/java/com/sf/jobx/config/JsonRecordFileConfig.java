@@ -16,6 +16,7 @@ import rx.observables.ConnectableObservable;
 
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by adityasofat on 08/03/2016.
@@ -62,5 +63,27 @@ public class JsonRecordFileConfig implements JobConfig<String,JsonRecord> {
         return EnumUtil.enumParameters(DefaultJobExecutionParameters.class);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JsonRecordFileConfig that = (JsonRecordFileConfig) o;
+        return Objects.equals(idKey, that.idKey) &&
+                Objects.equals(jsonRecordInputStream, that.jsonRecordInputStream) &&
+                Objects.equals(itemAdaptor, that.itemAdaptor);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(idKey, jsonRecordInputStream, itemAdaptor);
+    }
+
+    @Override
+    public String toString() {
+        return "JsonRecordFileConfig{" +
+                "idKey=" + idKey +
+                ", jsonRecordInputStream=" + jsonRecordInputStream +
+                ", itemAdaptor=" + itemAdaptor +
+                '}';
+    }
 }

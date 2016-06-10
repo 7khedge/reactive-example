@@ -22,4 +22,10 @@ public class ItemCollectingAdaptorImpl<T> implements ItemCollectingAdaptor<T> {
         this.collectedItems.add(item);
     }
 
+    @Override
+    public String toString() {
+        return "ItemCollectingAdaptorImpl{" +
+                "collectedItems=" + collectedItems +
+                '}';
+    }
 }
