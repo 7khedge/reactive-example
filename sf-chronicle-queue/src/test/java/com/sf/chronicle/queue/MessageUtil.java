@@ -15,11 +15,11 @@ public class MessageUtil {
 
     public static List<Message<String>> getMessages() {
         List<Message<String>> messages = new ArrayList<Message<String>>();
-        messages.add(new Message<String>(getMessagePayLoad().get(0)));
-        messages.add(new Message<String>(getMessagePayLoad().get(1)));
-        messages.add(new Message<String>(getMessagePayLoad().get(2)));
-        messages.add(new Message<String>(getMessagePayLoad().get(3)));
-        messages.add(new Message<String>(getMessagePayLoad().get(4)));
+        messages.add(new Message<>(getMessagePayLoad().get(0)));
+        messages.add(new Message<>(getMessagePayLoad().get(1)));
+        messages.add(new Message<>(getMessagePayLoad().get(2)));
+        messages.add(new Message<>(getMessagePayLoad().get(3)));
+        messages.add(new Message<>(getMessagePayLoad().get(4)));
         return messages;
     }
 

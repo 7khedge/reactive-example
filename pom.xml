@@ -49,6 +49,8 @@
         <!-- logging -->
         <slf4j.version>1.7.5</slf4j.version>
         <logback.version>1.0.13</logback.version>
+        <!-- graphdb -->
+        <neo4j.version>3.0.7</neo4j.version>
         <!-- testing -->
         <junit.version>4.11</junit.version>
         <hamcrest.version>1.3</hamcrest.version>
@@ -176,6 +178,17 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
                 <scope>runtime</scope>
+            </dependency>
+            <!-- graph db -->
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-kernel</artifactId>
+                <version>${neo4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j-lucene-index</artifactId>
+                <version>${neo4j.version}</version>
             </dependency>
             <!-- testing -->
             <dependency>

@@ -1,5 +1,8 @@
 package com.sf.kafka;
 
+import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.common.serialization.StringSerializer;
+
 import java.util.Properties;
 
 /**
@@ -14,8 +17,8 @@ public class KafkaProperties {
         properties.put("batch.size", 16384);
         properties.put("linger.ms", 1);
         properties.put("buffer.memory", 33554432);
-        properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put("key.serializer", StringSerializer.class.getName());
+        properties.put("value.serializer", StringSerializer.class.getName());
         addCommon(properties);
         return properties;
     }
@@ -30,8 +33,8 @@ public class KafkaProperties {
         properties.put("enable.auto.commit", "true");
         properties.put("auto.commit.interval.ms", "1000");
         properties.put("session.timeout.ms", "30000");
-        properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        properties.put("key.deserializer", StringDeserializer.class.getName());
+        properties.put("value.deserializer", StringDeserializer.class.getName());
         addCommon(properties);
         return properties;
     }

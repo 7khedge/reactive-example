@@ -9,7 +9,7 @@ import org.junit.Test;
 public class KafkaListenerShould {
 
     @Test
-    @Ignore("Need to understand offset and message expiry")
+  //  @Ignore("Need to understand offset and message expiry")
     public void listenToTopic() {
         KafkaListener<String, String> kafkaListener = new KafkaListener<>("test");
         kafkaListener.subscriber(String::toString);
