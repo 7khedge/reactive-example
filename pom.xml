@@ -18,6 +18,7 @@
         <module>sf-delta</module>
         <module>sf-kafka</module>
         <module>sf-jobx</module>
+        <module>sf-data</module>
     </modules>
 
     <properties>
