@@ -9,13 +9,12 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.sf.data.service.MessageStringCleaner.cleanString;
 
 /**
  * Created by adityasofat on 01/12/2016.
@@ -28,15 +27,10 @@ public class FileProcessorTest {
     @Test
     public void shouldReadAnAirportMessage() throws Exception {
         //Given
-        URL resource = SFClassUtils.getClassLoader().getResource("airports-sample.dat");
-        MatcherAssert.assertThat("Could not find file", resource, Matchers.notNullValue());
-        Path path = Paths.get(resource.toURI());
-        FileProcessor fileProcessor = new FileProcessor();
+        Path path = getPath("airports-sample.dat");
         List<Airport> airports = new ArrayList<>();
-
-        //When
+       //When
         fileProcessor.processFile(path, line -> {
-            String[] split = line.split(",");
             Airport airport = Airport.AirportBuilder.anAirport()
                     .from(line)
                     .build();
@@ -60,12 +54,16 @@ public class FileProcessorTest {
         MatcherAssert.assertThat(airport.getTimeZone(), Matchers.equalTo("Pacific/Port_Moresby"));
     }
 
+    private Path getPath(String fileName) throws URISyntaxException {
+        URL resource = SFClassUtils.getClassLoader().getResource(fileName);
+        MatcherAssert.assertThat("Could not find file", resource, Matchers.notNullValue());
+        return Paths.get(resource.toURI());
+    }
+
     @Test
     public void shouldReadAirlineMessage() throws Exception {
         //Given
-        URL resource = SFClassUtils.getClassLoader().getResource("airlines-sample.dat");
-        MatcherAssert.assertThat("Could not find file", resource, Matchers.notNullValue());
-        Path path = Paths.get(resource.toURI());
+        Path path = getPath("airlines-sample.dat");
 
         List<Airline> airlines = new ArrayList<>();
         //When
@@ -94,25 +92,12 @@ public class FileProcessorTest {
     @Test
     public void shouldReadRouteMessage() throws Exception {
         //Given
-        URL resource = SFClassUtils.getClassLoader().getResource("routes-sample.dat");
-        MatcherAssert.assertThat("Could not find file", resource, Matchers.notNullValue());
-        Path path = Paths.get(resource.toURI());
-
+        Path path = getPath("routes-sample.dat");
         List<Route> routes = new ArrayList<>();
         //When
-        //When
         fileProcessor.processFile(path, line -> {
-            String[] split = line.split(",");
             Route route = Route.RouteBuilder.aRoute()
-            .withAirlineIATACode(split[0])
-            .withAirlineId(split[1])
-            .withSourceAirportIATACode(split[2])
-            .withSourceAirportId(split[3])
-            .withDestinationAirportIATACode(split[4])
-            .withDestinationAirportId(split[5])
-            .withCodeShare(split[6])
-            .withNumberOfStops(split[7])
-            .withPlainTypes(split[8].split(" "))
+                    .from(line)
                     .build();
             routes.add(route);
         });

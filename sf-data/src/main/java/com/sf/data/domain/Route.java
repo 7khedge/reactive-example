@@ -1,7 +1,11 @@
 package com.sf.data.domain;
 
+import com.sf.data.service.MessageStringCleaner;
+
 import java.util.Arrays;
 import java.util.List;
+
+import static com.sf.data.service.MessageStringCleaner.cleanString;
 
 /**
  * Created by adityasofat on 01/12/2016.
@@ -128,9 +132,24 @@ public class Route {
             return this;
         }
 
+        public RouteBuilder from(String line) {
+            String[] split = line.split(",");
+            withAirlineIATACode(cleanString(split[0]));
+            withAirlineId(cleanString(split[1]));
+            withSourceAirportIATACode(cleanString(split[2]));
+            withSourceAirportId(cleanString(split[3]));
+            withDestinationAirportIATACode(cleanString(split[4]));
+            withDestinationAirportId(cleanString(split[5]));
+            withCodeShare(cleanString(split[6]));
+            withNumberOfStops(cleanString(split[7]));
+            withPlainTypes(split[8].split(" "));
+            return this;
+        }
+
         public Route build() {
             Route route = new Route(airlineIATACode, airlineId, sourceAirportIATACode, sourceAirportId, destinationAirportIATACode, destinationAirportId, codeShare, numberOfStops, plainTypes);
             return route;
         }
+
     }
 }
