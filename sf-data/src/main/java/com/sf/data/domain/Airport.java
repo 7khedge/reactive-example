@@ -18,12 +18,12 @@ public class Airport {
     private final String ICAOCode;
     private final BigDecimal latitude;
     private final BigDecimal longitude;
-    private final Integer altitude;
-    private final Integer timeOffset;
+    private final BigDecimal altitude;
+    private final BigDecimal timeOffset;
     private final String dstCode;
     private final String timeZone;
 
-    public Airport(String id, String name, String city, String country, String IATACode, String ICAOCode, BigDecimal latitude, BigDecimal longitude, Integer altitude, Integer timeOffset, String dstCode, String timeZone) {
+    public Airport(String id, String name, String city, String country, String IATACode, String ICAOCode, BigDecimal latitude, BigDecimal longitude, BigDecimal altitude, BigDecimal timeOffset, String dstCode, String timeZone) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -70,11 +70,11 @@ public class Airport {
         return longitude;
     }
 
-    public Integer getAltitude() {
+    public BigDecimal getAltitude() {
         return altitude;
     }
 
-    public Integer getTimeOffset() {
+    public BigDecimal getTimeOffset() {
         return timeOffset;
     }
 
@@ -96,8 +96,8 @@ public class Airport {
         private String ICAOCode;
         private BigDecimal latitude;
         private BigDecimal longitude;
-        private Integer altitude;
-        private Integer timeOffset;
+        private BigDecimal altitude;
+        private BigDecimal timeOffset;
         private String dstCode;
         private String timeZone;
 
@@ -148,12 +148,12 @@ public class Airport {
             return this;
         }
 
-        public AirportBuilder withAltitude(Integer altitude) {
+        public AirportBuilder withAltitude(BigDecimal altitude) {
             this.altitude = altitude;
             return this;
         }
 
-        public AirportBuilder withTimeOffset(Integer timeOffset) {
+        public AirportBuilder withTimeOffset(BigDecimal timeOffset) {
             this.timeOffset = timeOffset;
             return this;
         }
@@ -178,8 +178,8 @@ public class Airport {
             withICAOCode(cleanString(split[5]));
             withLatitude(new BigDecimal(split[6]));
             withLongitude(new BigDecimal(split[7]));
-            withAltitude(Integer.valueOf(split[8]));
-            withTimeOffset(Integer.valueOf(split[9]));
+            withAltitude(new BigDecimal(split[8]));
+            withTimeOffset(new BigDecimal(split[9]));
             withDstCode(cleanString(split[10]));
             withTimeZone(cleanString(split[11]));
             return this;

@@ -142,7 +142,9 @@ public class Route {
             withDestinationAirportId(cleanString(split[5]));
             withCodeShare(cleanString(split[6]));
             withNumberOfStops(cleanString(split[7]));
-            withPlainTypes(split[8].split(" "));
+            if(split.length > 8) {
+                withPlainTypes(split[8].split(" "));
+            }
             return this;
         }
 

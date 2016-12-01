@@ -4,9 +4,13 @@ import com.sf.data.domain.Airline;
 import com.sf.data.domain.Airport;
 import com.sf.data.domain.Route;
 import com.sf.util.file.SFClassUtils;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
@@ -22,6 +26,7 @@ import java.util.List;
 
 public class FileProcessorTest {
 
+    private Logger  logger = LoggerFactory.getLogger(getClass());
     private FileProcessor fileProcessor = new FileProcessor();
 
     @Test
@@ -115,6 +120,56 @@ public class FileProcessorTest {
         MatcherAssert.assertThat(route.getNumberOfStops(), Matchers.equalTo("0"));
         MatcherAssert.assertThat(route.getPlainTypes(), Matchers.contains("321","320","330"));
     }
+
+
+    @Test
+    public void shouldReadAllAirports() throws Exception {
+        //Given
+        Path path = getPath("airports.dat");
+        List<Airport> airports = new ArrayList<>();
+        //When
+        fileProcessor.processFile(path, line -> {
+            logger.info("Processing [" + line + "]");
+            Airport airport = Airport.AirportBuilder.anAirport()
+                    .from(line)
+                    .build();
+            airports.add(airport);
+        });
+        MatcherAssert.assertThat(airports.size(), Matchers.equalTo(8107));
+    }
+
+    @Test
+    public void shouldReadAllAirlines() throws Exception {
+        //Given
+        Path path = getPath("airlines.dat");
+        List<Airline> airlines = new ArrayList<>();
+        //When
+        fileProcessor.processFile(path, line -> {
+            logger.info("Processing [" + line + "]");
+            Airline airline = Airline.AirlineBuilder.anAirline()
+                    .from(line)
+                    .build();
+            airlines.add(airline);
+        });
+        MatcherAssert.assertThat(airlines.size(), Matchers.equalTo(6048));
+    }
+
+    @Test
+    public void shouldReadAllRoutes() throws Exception {
+        //Given
+        Path path = getPath("routes.dat");
+        List<Route> routes = new ArrayList<>();
+        //When
+        fileProcessor.processFile(path, line -> {
+            logger.info("Processing [" + line + "]");
+            Route route = Route.RouteBuilder.aRoute()
+                    .from(line)
+                    .build();
+            routes.add(route);
+        });
+        MatcherAssert.assertThat(routes.size(), Matchers.equalTo(67663));
+    }
+
 
 
 }

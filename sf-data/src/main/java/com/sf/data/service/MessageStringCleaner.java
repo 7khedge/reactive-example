@@ -9,7 +9,7 @@ public class MessageStringCleaner {
 
 
     public static String cleanString(String string){
-        if (string.equals(nullString)) {
+        if (string == null || string.isEmpty() || string.equals(nullString)) {
             return "";
         }
         if (string.charAt(0) == '"' && string.charAt(string.length()-1) == '"'){
