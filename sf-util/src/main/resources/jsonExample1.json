@@ -1,0 +1,218 @@
+{
+  "ciRelationships": [
+    {
+      "childId": "49cadc694fb89a00c5ce44f18110c7d1",
+      "childToParent": "Contained by",
+      "parentId": "190adc694fb89a00c5ce44f18110c7cb",
+      "parentToChild": "Contains"
+    },
+    {
+      "childId": "2bca10a94fb89a00c5ce44f18110c778",
+      "childToParent": "Contained by",
+      "parentId": "190adc694fb89a00c5ce44f18110c7cb",
+      "parentToChild": "Contains"
+    },
+    {
+      "childId": "548ad0694fb89a00c5ce44f18110c7c1",
+      "childToParent": "Contained by",
+      "parentId": "190adc694fb89a00c5ce44f18110c7cb",
+      "parentToChild": "Contains"
+    },
+    {
+      "childId": "21dbd8a94fb89a00c5ce44f18110c729",
+      "childToParent": "Contained by",
+      "parentId": "190adc694fb89a00c5ce44f18110c7cb",
+      "parentToChild": "Contains"
+    },
+    {
+      "childId": "effb1ca94fb89a00c5ce44f18110c701",
+      "childToParent": "Manages",
+      "parentId": "190adc694fb89a00c5ce44f18110c7cb",
+      "parentToChild": "Managed by"
+    },
+    {
+      "childId": "ed7373594f0d5e00c5ce44f18110c789",
+      "childToParent": "Connected by",
+      "parentId": "49cadc694fb89a00c5ce44f18110c7d1",
+      "parentToChild": "Connects to"
+    },
+    {
+      "childId": "21dbd8a94fb89a00c5ce44f18110c729",
+      "childToParent": "Connected by",
+      "parentId": "2bca10a94fb89a00c5ce44f18110c778",
+      "parentToChild": "Connects to"
+    },
+    {
+      "childId": "37faa4ad4fb89a00c5ce44f18110c79b",
+      "childToParent": "Connected by",
+      "parentId": "2bca10a94fb89a00c5ce44f18110c778",
+      "parentToChild": "Connects to"
+    },
+    {
+      "childId": "37faa4ad4fb89a00c5ce44f18110c79b",
+      "childToParent": "Contained by",
+      "parentId": "21dbd8a94fb89a00c5ce44f18110c729",
+      "parentToChild": "Contains"
+    },
+    {
+      "childId": "2bca10a94fb89a00c5ce44f18110c778",
+      "childToParent": "Connected by",
+      "parentId": "21dbd8a94fb89a00c5ce44f18110c729",
+      "parentToChild": "Connects to"
+    },
+    {
+      "childId": "effb1ca94fb89a00c5ce44f18110c701",
+      "childToParent": "Manages",
+      "parentId": "21dbd8a94fb89a00c5ce44f18110c729",
+      "parentToChild": "Managed by"
+    },
+    {
+      "childId": "a508286d4fb89a00c5ce44f18110c721",
+      "childToParent": "Active for",
+      "parentId": "effb1ca94fb89a00c5ce44f18110c701",
+      "parentToChild": "Active"
+    },
+    {
+      "childId": "727f68ad4fb89a00c5ce44f18110c782",
+      "childToParent": "Failover for",
+      "parentId": "effb1ca94fb89a00c5ce44f18110c701",
+      "parentToChild": "Failover"
+    },
+    {
+      "childId": "9515a02d4fb89a00c5ce44f18110c705",
+      "childToParent": "Active for",
+      "parentId": "effb1ca94fb89a00c5ce44f18110c701",
+      "parentToChild": "Active"
+    },
+    {
+      "childId": "c835b3a74fb41e00c5ce44f18110c779",
+      "childToParent": "DR for",
+      "parentId": "effb1ca94fb89a00c5ce44f18110c701",
+      "parentToChild": "DR"
+    },
+    {
+      "childId": "9515a02d4fb89a00c5ce44f18110c705",
+      "childToParent": "Manages",
+      "parentId": "a508286d4fb89a00c5ce44f18110c721",
+      "parentToChild": "Managed by"
+    },
+    {
+      "childId": "727f68ad4fb89a00c5ce44f18110c782",
+      "childToParent": "Manages",
+      "parentId": "a508286d4fb89a00c5ce44f18110c721",
+      "parentToChild": "Managed by"
+    },
+    {
+      "childId": "8f4fc43f4fb41e00c5ce44f18110c762",
+      "childToParent": "Connected by",
+      "parentId": "9515a02d4fb89a00c5ce44f18110c705",
+      "parentToChild": "Connects to"
+    }
+  ],
+  "configItems": [
+    {
+      "ciId": "190adc694fb89a00c5ce44f18110c7cb",
+      "ciType": "Middleware Farm Service",
+      "name": "Middleware EMS - EU Prod",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "49cadc694fb89a00c5ce44f18110c7d1",
+      "ciType": "Broker Address VIP",
+      "name": "tcp:\/\/JEUP-ITNNOW1-A\/B.nomura.com:42677",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "2bca10a94fb89a00c5ce44f18110c778",
+      "ciType": "Broker Address VIP",
+      "name": "tcp:\/\/JEUP-EISNOSS1-A\/B .nomura.com:42677 ",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "548ad0694fb89a00c5ce44f18110c7c1",
+      "ciType": "Broker Address VIP",
+      "name": "tcp:\/\/JEUP-FXVIPER1-A\/B.nomura.com:42640",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "21dbd8a94fb89a00c5ce44f18110c729",
+      "ciType": "Broker",
+      "name": "lonlxwkmwprdems7",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "effb1ca94fb89a00c5ce44f18110c701",
+      "ciType": "Broker Cluster",
+      "name": "CLUSTER A",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "ed7373594f0d5e00c5ce44f18110c789",
+      "ciType": "Message Queue",
+      "name": "nn.prod.audit..event.queue",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "37faa4ad4fb89a00c5ce44f18110c79b",
+      "ciType": "Message Queue",
+      "name": "nmr.eis.norse.consumer_queue.a2p.prd",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "a508286d4fb89a00c5ce44f18110c721",
+      "ciType": "Cluster",
+      "name": "Veritas Cluster mwprdems2034 ",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "727f68ad4fb89a00c5ce44f18110c782",
+      "ciType": "Linux Server",
+      "name": "Lonlx20139-c",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "9515a02d4fb89a00c5ce44f18110c705",
+      "ciType": "Linux Server",
+      "name": "Lonlx20076-c",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "c835b3a74fb41e00c5ce44f18110c779",
+      "ciType": "Linux Server",
+      "name": "Lonlx10114",
+      "properties": {
+        
+      }
+    },
+    {
+      "ciId": "8f4fc43f4fb41e00c5ce44f18110c762",
+      "ciType": "Storage Volume",
+      "name": "UKWOKVSP002:00:29:F3",
+      "properties": {
+        
+      }
+    }
+  ]
+}
