@@ -1,5 +1,6 @@
 package com.sf.data.domain;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -122,8 +123,8 @@ public class Route {
             return this;
         }
 
-        public RouteBuilder withPlainTypes(List<String> plainTypes) {
-            this.plainTypes = plainTypes;
+        public RouteBuilder withPlainTypes(String[] plainTypes) {
+            this.plainTypes = Arrays.asList(plainTypes);
             return this;
         }
 

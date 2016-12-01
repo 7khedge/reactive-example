@@ -2,6 +2,7 @@ package com.sf.data.service;
 
 import com.sf.data.domain.Airline;
 import com.sf.data.domain.Airport;
+import com.sf.data.domain.Route;
 import com.sf.util.file.SFClassUtils;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -13,6 +14,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.sf.data.service.MessageStringCleaner.cleanString;
 
 /**
  * Created by adityasofat on 01/12/2016.
@@ -85,6 +88,47 @@ public class FileProcessorTest {
         MatcherAssert.assertThat(airline.getCallSign(), Matchers.equalTo("GENERAL"));
         MatcherAssert.assertThat(airline.getCountry(), Matchers.equalTo("United States"));
         MatcherAssert.assertThat(airline.getActive(), Matchers.equalTo("N"));
+    }
+
+
+    @Test
+    public void shouldReadRouteMessage() throws Exception {
+        //Given
+        URL resource = SFClassUtils.getClassLoader().getResource("routes-sample.dat");
+        MatcherAssert.assertThat("Could not find file", resource, Matchers.notNullValue());
+        Path path = Paths.get(resource.toURI());
+
+        List<Route> routes = new ArrayList<>();
+        //When
+        //When
+        fileProcessor.processFile(path, line -> {
+            String[] split = line.split(",");
+            Route route = Route.RouteBuilder.aRoute()
+            .withAirlineIATACode(split[0])
+            .withAirlineId(split[1])
+            .withSourceAirportIATACode(split[2])
+            .withSourceAirportId(split[3])
+            .withDestinationAirportIATACode(split[4])
+            .withDestinationAirportId(split[5])
+            .withCodeShare(split[6])
+            .withNumberOfStops(split[7])
+            .withPlainTypes(split[8].split(" "))
+                    .build();
+            routes.add(route);
+        });
+        //Then
+        Route route = routes.get(0);
+        MatcherAssert.assertThat(path.toFile().exists(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(routes.size(), Matchers.equalTo(1));
+        MatcherAssert.assertThat(route.getAirlineIATACode(), Matchers.equalTo("3U"));
+        MatcherAssert.assertThat(route.getAirlineId(), Matchers.equalTo("4608"));
+        MatcherAssert.assertThat(route.getSourceAirportIATACode(), Matchers.equalTo("CAN"));
+        MatcherAssert.assertThat(route.getSourceAirportId(), Matchers.equalTo("3370"));
+        MatcherAssert.assertThat(route.getDestinationAirportIATACode(), Matchers.equalTo("CTU"));
+        MatcherAssert.assertThat(route.getDestinationAirportId(), Matchers.equalTo("3395"));
+        MatcherAssert.assertThat(route.getCodeShare(), Matchers.equalTo(""));
+        MatcherAssert.assertThat(route.getNumberOfStops(), Matchers.equalTo("0"));
+        MatcherAssert.assertThat(route.getPlainTypes(), Matchers.contains("321","320","330"));
     }
 
 
