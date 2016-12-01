@@ -19,6 +19,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by adityasofat on 01/12/2016.
@@ -26,7 +30,7 @@ import java.util.List;
 
 public class FileProcessorTest {
 
-    private Logger  logger = LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private FileProcessor fileProcessor = new FileProcessor();
 
     @Test
@@ -34,7 +38,7 @@ public class FileProcessorTest {
         //Given
         Path path = getPath("airports-sample.dat");
         List<Airport> airports = new ArrayList<>();
-       //When
+        //When
         fileProcessor.processFile(path, line -> {
             Airport airport = Airport.AirportBuilder.anAirport()
                     .from(line)
@@ -118,7 +122,7 @@ public class FileProcessorTest {
         MatcherAssert.assertThat(route.getDestinationAirportId(), Matchers.equalTo("3395"));
         MatcherAssert.assertThat(route.getCodeShare(), Matchers.equalTo(""));
         MatcherAssert.assertThat(route.getNumberOfStops(), Matchers.equalTo("0"));
-        MatcherAssert.assertThat(route.getPlainTypes(), Matchers.contains("321","320","330"));
+        MatcherAssert.assertThat(route.getPlainTypes(), Matchers.contains("321", "320", "330"));
     }
 
 
@@ -126,10 +130,9 @@ public class FileProcessorTest {
     public void shouldReadAllAirports() throws Exception {
         //Given
         Path path = getPath("airports.dat");
-        List<Airport> airports = new ArrayList<>();
+        Queue<Airport> airports = new ConcurrentLinkedQueue<>();
         //When
         fileProcessor.processFile(path, line -> {
-            logger.info("Processing [" + line + "]");
             Airport airport = Airport.AirportBuilder.anAirport()
                     .from(line)
                     .build();
@@ -142,10 +145,9 @@ public class FileProcessorTest {
     public void shouldReadAllAirlines() throws Exception {
         //Given
         Path path = getPath("airlines.dat");
-        List<Airline> airlines = new ArrayList<>();
+        Queue<Airline> airlines = new ConcurrentLinkedQueue<>();
         //When
         fileProcessor.processFile(path, line -> {
-            logger.info("Processing [" + line + "]");
             Airline airline = Airline.AirlineBuilder.anAirline()
                     .from(line)
                     .build();
@@ -158,10 +160,9 @@ public class FileProcessorTest {
     public void shouldReadAllRoutes() throws Exception {
         //Given
         Path path = getPath("routes.dat");
-        List<Route> routes = new ArrayList<>();
+        Queue<Route> routes = new ConcurrentLinkedQueue<>();
         //When
         fileProcessor.processFile(path, line -> {
-            logger.info("Processing [" + line + "]");
             Route route = Route.RouteBuilder.aRoute()
                     .from(line)
                     .build();
@@ -169,7 +170,6 @@ public class FileProcessorTest {
         });
         MatcherAssert.assertThat(routes.size(), Matchers.equalTo(67663));
     }
-
 
 
 }

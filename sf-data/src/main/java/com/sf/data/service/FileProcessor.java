@@ -16,6 +16,7 @@ public class FileProcessor {
     public void processFile(Path path,MessageListener messageListener){
         try {
             Files.lines(path)
+                    .parallel()
                     .forEach(messageListener::onMessage);
         } catch (IOException e) {
             e.printStackTrace();

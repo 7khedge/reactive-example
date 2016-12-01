@@ -4,6 +4,7 @@ import com.sf.data.service.MessageStringCleaner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static com.sf.data.service.MessageStringCleaner.cleanString;
 
@@ -79,6 +80,27 @@ public class Route {
         private String codeShare;
         private String numberOfStops;
         private List<String> plainTypes;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            RouteBuilder that = (RouteBuilder) o;
+            return Objects.equals(airlineIATACode, that.airlineIATACode) &&
+                    Objects.equals(airlineId, that.airlineId) &&
+                    Objects.equals(sourceAirportIATACode, that.sourceAirportIATACode) &&
+                    Objects.equals(sourceAirportId, that.sourceAirportId) &&
+                    Objects.equals(destinationAirportIATACode, that.destinationAirportIATACode) &&
+                    Objects.equals(destinationAirportId, that.destinationAirportId) &&
+                    Objects.equals(codeShare, that.codeShare) &&
+                    Objects.equals(numberOfStops, that.numberOfStops) &&
+                    Objects.equals(plainTypes, that.plainTypes);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(airlineIATACode, airlineId, sourceAirportIATACode, sourceAirportId, destinationAirportIATACode, destinationAirportId, codeShare, numberOfStops, plainTypes);
+        }
 
         private RouteBuilder() {
         }
