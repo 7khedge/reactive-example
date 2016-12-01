@@ -1,5 +1,6 @@
 package com.sf.data.service;
 
+import com.sf.data.domain.Airline;
 import com.sf.data.domain.Airport;
 import com.sf.util.file.SFClassUtils;
 import org.hamcrest.MatcherAssert;
@@ -13,17 +14,19 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created by adityasofat on 01/12/2016.
  */
+
 public class FileProcessorTest {
 
+    private FileProcessor fileProcessor = new FileProcessor();
+
     @Test
-    public void shouldReadMessages() throws Exception {
+    public void shouldReadAnAirportMessage() throws Exception {
         //Given
         URL resource = SFClassUtils.getClassLoader().getResource("airports-sample.dat");
-        MatcherAssert.assertThat("Could not find file",resource, Matchers.notNullValue());
+        MatcherAssert.assertThat("Could not find file", resource, Matchers.notNullValue());
         Path path = Paths.get(resource.toURI());
         FileProcessor fileProcessor = new FileProcessor();
         List<Airport> airports = new ArrayList<>();
@@ -32,24 +35,13 @@ public class FileProcessorTest {
         fileProcessor.processFile(path, line -> {
             String[] split = line.split(",");
             Airport airport = Airport.AirportBuilder.anAirport()
-                    .withId(split[0])
-                    .withName(removeQuotes(split[1]))
-                    .withCity(removeQuotes(split[2]))
-                    .withCountry(removeQuotes(split[3]))
-                    .withIATACode(removeQuotes(split[4]))
-                    .withICAOCode(removeQuotes(split[5]))
-                    .withLatitude(new BigDecimal(split[6]))
-                    .withLongitude(new BigDecimal(split[7]))
-                    .withAltitude(Integer.valueOf(split[8]))
-                    .withTimeOffset(Integer.valueOf(split[9]))
-                    .withDstCode(removeQuotes(split[10]))
-                    .withTimeZone(removeQuotes(split[11]))
+                    .from(line)
                     .build();
             airports.add(airport);
         });
         Airport airport = airports.get(0);
         //Then
-        MatcherAssert.assertThat(airports.size(),Matchers.equalTo(1));
+        MatcherAssert.assertThat(airports.size(), Matchers.equalTo(1));
         MatcherAssert.assertThat(path.toFile().exists(), Matchers.equalTo(true));
         MatcherAssert.assertThat(airport.getId(), Matchers.equalTo("1"));
         MatcherAssert.assertThat(airport.getName(), Matchers.equalTo("Goroka"));
@@ -65,7 +57,35 @@ public class FileProcessorTest {
         MatcherAssert.assertThat(airport.getTimeZone(), Matchers.equalTo("Pacific/Port_Moresby"));
     }
 
-    private String removeQuotes(String string){
-        return string.substring(1,string.length()-1);
+    @Test
+    public void shouldReadAirlineMessage() throws Exception {
+        //Given
+        URL resource = SFClassUtils.getClassLoader().getResource("airlines-sample.dat");
+        MatcherAssert.assertThat("Could not find file", resource, Matchers.notNullValue());
+        Path path = Paths.get(resource.toURI());
+
+        List<Airline> airlines = new ArrayList<>();
+        //When
+        //When
+        fileProcessor.processFile(path, line -> {
+            Airline airline = Airline.AirlineBuilder.anAirline()
+                    .from(line)
+                    .build();
+            airlines.add(airline);
+        });
+        //Then
+        Airline airline = airlines.get(0);
+        MatcherAssert.assertThat(path.toFile().exists(), Matchers.equalTo(true));
+        MatcherAssert.assertThat(airlines.size(), Matchers.equalTo(1));
+        MatcherAssert.assertThat(airline.getId(), Matchers.equalTo("2"));
+        MatcherAssert.assertThat(airline.getName(), Matchers.equalTo("135 Airways"));
+        MatcherAssert.assertThat(airline.getAlias(), Matchers.equalTo(""));
+        MatcherAssert.assertThat(airline.getIATACode(), Matchers.equalTo(""));
+        MatcherAssert.assertThat(airline.getICAOCode(), Matchers.equalTo("GNL"));
+        MatcherAssert.assertThat(airline.getCallSign(), Matchers.equalTo("GENERAL"));
+        MatcherAssert.assertThat(airline.getCountry(), Matchers.equalTo("United States"));
+        MatcherAssert.assertThat(airline.getActive(), Matchers.equalTo("N"));
     }
+
+
 }

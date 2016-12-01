@@ -1,6 +1,10 @@
 package com.sf.data.domain;
 
+import com.sf.data.service.MessageStringCleaner;
+
 import java.math.BigDecimal;
+
+import static com.sf.data.service.MessageStringCleaner.cleanString;
 
 /**
  * Created by adityasofat on 01/12/2016.
@@ -164,9 +168,27 @@ public class Airport {
             return this;
         }
 
+        public AirportBuilder from(String line) {
+            String[] split = line.split(",");
+            withId(split[0]);
+            withName(cleanString(split[1]));
+            withCity(cleanString(split[2]));
+            withCountry(cleanString(split[3]));
+            withIATACode(cleanString(split[4]));
+            withICAOCode(cleanString(split[5]));
+            withLatitude(new BigDecimal(split[6]));
+            withLongitude(new BigDecimal(split[7]));
+            withAltitude(Integer.valueOf(split[8]));
+            withTimeOffset(Integer.valueOf(split[9]));
+            withDstCode(cleanString(split[10]));
+            withTimeZone(cleanString(split[11]));
+            return this;
+        }
+
         public Airport build() {
             Airport airport = new Airport(id, name, city, country, IATACode, ICAOCode, latitude, longitude, altitude, timeOffset, dstCode, timeZone);
             return airport;
         }
+
     }
 }

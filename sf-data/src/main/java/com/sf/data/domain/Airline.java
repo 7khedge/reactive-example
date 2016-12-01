@@ -1,5 +1,7 @@
 package com.sf.data.domain;
 
+import static com.sf.data.service.MessageStringCleaner.cleanString;
+
 /**
  * Created by adityasofat on 01/12/2016.
  */
@@ -116,6 +118,19 @@ public class Airline {
         public Airline build() {
             Airline airline = new Airline(id, name, alias, IATACode, ICAOCode, callSign, country, active);
             return airline;
+        }
+
+        public AirlineBuilder from(String line) {
+            String[] split = line.split(",");
+            withId(split[0]);
+            withName(cleanString(split[1]));
+            withAlias(cleanString(split[2]));
+            withIATACode(cleanString(split[3]));
+            withICAOCode(cleanString(split[4]));
+            withCallSign(cleanString(split[5]));
+            withCountry(cleanString(split[6]));
+            withActive(cleanString(split[7]));
+            return this;
         }
     }
 }
