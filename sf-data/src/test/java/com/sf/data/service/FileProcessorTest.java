@@ -53,8 +53,8 @@ public class FileProcessorTest {
         MatcherAssert.assertThat(airport.getICAOCode(), Matchers.equalTo("AYGA"));
         MatcherAssert.assertThat(airport.getLatitude(), Matchers.equalTo(new BigDecimal("-6.081689")));
         MatcherAssert.assertThat(airport.getLongitude(), Matchers.equalTo(new BigDecimal("145.391881")));
-        MatcherAssert.assertThat(airport.getAltitude(), Matchers.equalTo(5282));
-        MatcherAssert.assertThat(airport.getTimeOffset(), Matchers.equalTo(10));
+        MatcherAssert.assertThat(airport.getAltitude(), Matchers.equalTo(new BigDecimal(5282)));
+        MatcherAssert.assertThat(airport.getTimeOffset(), Matchers.equalTo(new BigDecimal(10)));
         MatcherAssert.assertThat(airport.getDstCode(), Matchers.equalTo("U"));
         MatcherAssert.assertThat(airport.getTimeZone(), Matchers.equalTo("Pacific/Port_Moresby"));
     }

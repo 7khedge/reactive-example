@@ -18,6 +18,15 @@
             <artifactId>sf-util</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <!-- graph db -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-kernel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-lucene-index</artifactId>
+        </dependency>
         <!-- csv -->
         <dependency>
             <groupId>org.apache.commons</groupId>

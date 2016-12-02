@@ -1,7 +1,5 @@
 package com.sf.data.domain;
 
-import com.sf.data.service.MessageStringCleaner;
-
 import java.math.BigDecimal;
 
 import static com.sf.data.service.MessageStringCleaner.cleanString;
