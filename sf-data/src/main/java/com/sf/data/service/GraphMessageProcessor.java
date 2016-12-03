@@ -1,6 +1,6 @@
 package com.sf.data.service;
 
-import com.sf.data.domain.MessageLabel;
+import com.sf.data.domain.NodeLabel;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
@@ -14,8 +14,8 @@ public class GraphMessageProcessor {
         this.graphDatabaseService = graphDatabaseService;
     }
 
-    public MessageListener getMessageListener(MessageLabel messageLabel) {
-        return (message -> messageLabel.persistToGraph(graphDatabaseService, message));
+    public MessageListener getMessageListener(NodeLabel nodeLabel) {
+        return (message -> nodeLabel.persistToGraph(graphDatabaseService, message));
     }
 
 }
