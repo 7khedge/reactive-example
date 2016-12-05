@@ -39,10 +39,10 @@ public enum NodeLabel implements Label {
                 javaNode.setProperty("City", airport.getCity());
                 javaNode.setProperty("Country", airport.getCountry());
                 javaNode.setProperty("IATACode", airport.getIATACode());
-                javaNode.setProperty("Latitude", airport.getLatitude());
-                javaNode.setProperty("Longitude", airport.getLongitude());
-                javaNode.setProperty("Altitude", airport.getAltitude());
-                javaNode.setProperty("TimeOffset", airport.getTimeOffset());
+                javaNode.setProperty("Latitude", airport.getLatitude().floatValue());
+                javaNode.setProperty("Longitude", airport.getLongitude().floatValue());
+                javaNode.setProperty("Altitude", airport.getAltitude().floatValue());
+                javaNode.setProperty("TimeOffset", airport.getTimeOffset().floatValue());
                 javaNode.setProperty("DstCode", airport.getDstCode());
                 javaNode.setProperty("TimeZone", airport.getTimeZone());
                 tx.success();
@@ -56,21 +56,25 @@ public enum NodeLabel implements Label {
                 Route route = Route.RouteBuilder.aRoute()
                         .from(message)
                         .build();
-                Node airline = graphDatabaseService.findNode(AIRLINE, "Id", route.getAirlineId());
-                Node sourceAirport = graphDatabaseService.findNode(AIRPORT, "Id", route.getSourceAirportId());
-                Node destinationAirport = graphDatabaseService.findNode(AIRPORT, "Id", route.getDestinationAirportId());
-                Relationship routeRelationship = sourceAirport.createRelationshipTo(destinationAirport, RelationshipLabel.ROUTE);
-                routeRelationship.setProperty("Airline",airline);
-                routeRelationship.setProperty("CodeShare", route.getCodeShare());
-                routeRelationship.setProperty("NumberOfStops", route.getNumberOfStops());
-                route.getPlainTypes().forEach(plainType -> routeRelationship.setProperty("PlainType", plainType));
-                tx.success();
+                Node airlineNode = graphDatabaseService.findNode(AIRLINE, "Id", route.getAirlineId());
+                Node sourceAirportNode = graphDatabaseService.findNode(AIRPORT, "Id", route.getSourceAirportId());
+                Node destinationAirportNode = graphDatabaseService.findNode(AIRPORT, "Id", route.getDestinationAirportId());
+                if ( airlineNode != null && sourceAirportNode != null && destinationAirportNode != null) {
+                    Node routeNode = graphDatabaseService.createNode(ROUTE);
+                    routeNode.setProperty("CodeShare", route.getCodeShare());
+                    routeNode.setProperty("NumberOfStops", route.getNumberOfStops());
+                    if (route.getPlainTypes() != null && !route.getPlainTypes().isEmpty() ) {
+                        route.getPlainTypes().forEach(plainType -> routeNode.setProperty("PlainType", plainType));
+                    }
+                    Relationship fromRouteRelationship = routeNode.createRelationshipTo(sourceAirportNode, RelationshipLabel.FROM);
+                    Relationship toRouteRelationship = routeNode.createRelationshipTo(destinationAirportNode, RelationshipLabel.TO);
+                    Relationship airlineRouteRelationship = routeNode.createRelationshipTo(airlineNode, RelationshipLabel.OF);
+                    tx.success();
+                }
             }
         }
     };
 
-
     public abstract void persistToGraph(GraphDatabaseService graphDatabaseService, String message);
-
 
 }
