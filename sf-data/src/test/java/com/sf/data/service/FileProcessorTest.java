@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static com.sf.data.service.FileUtil.getPath;
+
 /**
  * Created by adityasofat on 01/12/2016.
  */
@@ -59,11 +61,7 @@ public class FileProcessorTest {
         MatcherAssert.assertThat(airport.getTimeZone(), Matchers.equalTo("Pacific/Port_Moresby"));
     }
 
-    private Path getPath(String fileName) throws URISyntaxException {
-        URL resource = SFClassUtils.getClassLoader().getResource(fileName);
-        MatcherAssert.assertThat("Could not find file", resource, Matchers.notNullValue());
-        return Paths.get(resource.toURI());
-    }
+
 
     @Test
     public void shouldReadAirlineMessage() throws Exception {

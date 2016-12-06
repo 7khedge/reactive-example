@@ -15,6 +15,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static com.sf.data.service.FileUtil.getPath;
+
 /**
  * Created by adityasofat on 02/12/2016.
  */
@@ -45,9 +47,4 @@ public class GraphMessageProcessorTest {
         FileUtils.deleteDirectory(graphDB);
     }
 
-    private Path getPath(String fileName) throws URISyntaxException {
-        URL resource = SFClassUtils.getClassLoader().getResource(fileName);
-        MatcherAssert.assertThat("Could not find file", resource, Matchers.notNullValue());
-        return Paths.get(resource.toURI());
-    }
 }

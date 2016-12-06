@@ -6,6 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by adityasofat on 15/02/2016.
@@ -21,7 +22,7 @@ public class KafkaListener<K, V> {
     }
 
     public void init() {
-        consumer.subscribe(Arrays.asList(name));
+        consumer.subscribe(Collections.singletonList(name));
     }
 
     public void subscriber(MessageListener<V> messageListener) {
