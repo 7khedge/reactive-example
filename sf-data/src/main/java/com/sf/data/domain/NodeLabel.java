@@ -1,6 +1,8 @@
 package com.sf.data.domain;
 
 import org.neo4j.graphdb.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by adityasofat on 02/12/2016.
@@ -61,6 +63,7 @@ public enum NodeLabel implements Label {
                 Node destinationAirportNode = graphDatabaseService.findNode(AIRPORT, "Id", route.getDestinationAirportId());
                 if ( airlineNode != null && sourceAirportNode != null && destinationAirportNode != null) {
                     Node routeNode = graphDatabaseService.createNode(ROUTE);
+                    routeNode.setProperty("Name",airlineNode.getProperty("Name") + ":" + sourceAirportNode.getProperty("Name") + "->" + destinationAirportNode.getProperty("Name"));
                     routeNode.setProperty("CodeShare", route.getCodeShare());
                     routeNode.setProperty("NumberOfStops", route.getNumberOfStops());
                     if (route.getPlainTypes() != null && !route.getPlainTypes().isEmpty() ) {
@@ -70,11 +73,15 @@ public enum NodeLabel implements Label {
                     Relationship toRouteRelationship = routeNode.createRelationshipTo(destinationAirportNode, RelationshipLabel.TO);
                     Relationship airlineRouteRelationship = routeNode.createRelationshipTo(airlineNode, RelationshipLabel.OF);
                     tx.success();
+                    logger.info("Persisted [" +  message + "]");
                 }
             }
+
+
         }
     };
 
     public abstract void persistToGraph(GraphDatabaseService graphDatabaseService, String message);
+    Logger logger = LoggerFactory.getLogger(getClass());
 
 }
