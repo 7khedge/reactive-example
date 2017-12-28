@@ -1,25 +1,20 @@
 package com.sf.data.service;
 
 import com.sf.data.domain.NodeLabel;
-import com.sf.util.file.SFClassUtils;
 import org.apache.commons.io.FileUtils;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 
 import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static com.sf.data.service.FileUtil.getPath;
 
 /**
  * Created by adityasofat on 02/12/2016.
  */
+@Ignore("long running test")
 public class GraphMessageProcessorTest {
 
     private static File graphDB = new File("/Users/adityasofat/dev/flightdata7");

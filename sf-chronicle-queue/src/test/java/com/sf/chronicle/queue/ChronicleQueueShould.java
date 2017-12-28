@@ -67,11 +67,9 @@ public class ChronicleQueueShould {
         final List<Message<String>> actualMessages = new ArrayList<Message<String>>();
         //When
         chronicleQueue.publishMessage(MessageUtil.getMessages().get(0), messageSize);
-        chronicleQueue.readMessages(new MessageListener() {
-            public void onMessage(Message message) {
-                actualMessages.add(message);
-                System.out.println(message.toString());
-            }
+        chronicleQueue.readMessages(message -> {
+            actualMessages.add(message);
+            System.out.println(message.toString());
         }, -1);
         //Then
         MatcherAssert.assertThat(expectedMessage, CoreMatchers.is(actualMessages.get(0)));
@@ -84,11 +82,9 @@ public class ChronicleQueueShould {
         final List<Message<String>> actualMessages = new ArrayList<Message<String>>();
         //When
         chronicleQueue.publishMessages(MessageUtil.getMessages(), messageSize);
-        chronicleQueue.readMessages(new MessageListener() {
-            public void onMessage(Message message) {
-                actualMessages.add(message);
-                System.out.println(message.toString());
-            }
+        chronicleQueue.readMessages(message -> {
+            actualMessages.add(message);
+            System.out.println(message.toString());
         }, -1);
 
         //Then
@@ -102,11 +98,9 @@ public class ChronicleQueueShould {
         List<Message<String>> expectedMessages = getReadMessages(MessageUtil.getMessages());
         final List<Message<String>> actualMessages = new ArrayList<Message<String>>();
         //When
-        chronicleQueue.readMessages(new MessageListener() {
-            public void onMessage(Message message) {
-                actualMessages.add(message);
-                System.out.println(message.toString());
-            }
+        chronicleQueue.readMessages(message -> {
+            actualMessages.add(message);
+            System.out.println(message.toString());
         }, -1);
         chronicleQueue.publishMessages(MessageUtil.getMessages(), messageSize);
         //Then

@@ -12,6 +12,9 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.sf.data.domain.Airline.AirlineBuilder.anAirline;
+import static com.sf.data.domain.Airport.AirportBuilder.anAirport;
+import static com.sf.data.domain.NewRoute.NewRouteBuilder.aNewRoute;
 import static com.sf.data.service.FileUtil.getPath;
 import static com.sf.data.service.MessageStringCleaner.cleanString;
 
@@ -26,7 +29,7 @@ public class FileStreamProcessingTest {
         Path airportPath = getPath("airports.dat");
         Map<String, Airport> airportMap = Files.lines(airportPath)
                 .parallel()
-                .map(line -> Airport.AirportBuilder.anAirport()
+                .map(line -> anAirport()
                         .from(line)
                         .build())
                 .collect(Collectors.toMap(Airport::getId, airport -> airport));
@@ -35,7 +38,7 @@ public class FileStreamProcessingTest {
         Path airlinePath = getPath("airlines.dat");
         Map<String, Airline> airlineMap = Files.lines(airlinePath)
                .parallel()
-                .map(line -> Airline.AirlineBuilder.anAirline()
+                .map(line -> anAirline()
                         .from(line)
                         .build())
                 .filter(airline -> airline.getActive().equals("Y"))
@@ -47,7 +50,7 @@ public class FileStreamProcessingTest {
                 .parallel()
                 .map(line -> line.split(","))
                 .map(stringArray -> {
-                    NewRoute.NewRouteBuilder newRouteBuilder = NewRoute.NewRouteBuilder.aNewRoute()
+                    NewRoute.NewRouteBuilder newRouteBuilder = aNewRoute()
                             .withAirline(airlineMap.get(cleanString(stringArray[1])))
                             .withSourceAirport(airportMap.get(cleanString(stringArray[3])))
                             .withDestinationAirport(airportMap.get(cleanString(stringArray[5])))
